@@ -1,5 +1,6 @@
 package br.com.loja.security;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Service;
 import br.com.loja.ApplicationContextLoad;
 import br.com.loja.model.Usuario;
 import br.com.loja.repository.UsuarioRepository;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 //Criar a autenticacao e retornar também a autenticacao JWT
 @Service
@@ -27,7 +30,7 @@ public class JWTTokenAutenticacaoService {
 	//chave de senha para juntar com o jwt
 	private static final String SECRET = "senhasecreta";
 	
-	private static final String TOKEN_PREFIX = "Bearer";
+	private static final String TOKEN_PREFIX = "Bearer"; 
 	
 	private static final String HEADER_STRING = "Authorization";
 	
@@ -57,10 +60,12 @@ public class JWTTokenAutenticacaoService {
 	}
 	
 	// Retorna o usuario validado com token ou caso não seja valido retorna null
-	public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) {
+	public Authentication getAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		//pega o token para validar.
 		String token = request.getHeader(HEADER_STRING);
+		
+		try {
 		
 		if(token != null) { 
 			String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim();
@@ -86,10 +91,16 @@ public class JWTTokenAutenticacaoService {
 				
 			}
 			
+		 }
+		
+		}catch (SignatureException e) {
+			response.getWriter().write("Token está invalido");
+		}catch (ExpiredJwtException e) {
+			response.getWriter().write("Token está expirado, efetuar o login novamente. ");
 		}
-		
-		
-		liberacaoCors(response);
+		finally {
+			liberacaoCors(response);
+		}
 		return null;
 	}
 	
