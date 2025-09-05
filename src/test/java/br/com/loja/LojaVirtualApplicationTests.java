@@ -1,5 +1,6 @@
 package br.com.loja;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 		
 		Acesso acesso = new Acesso();
 		
-		acesso.setDescricao("ROLE_COMPRADOR");
+		acesso.setDescricao("ROLE_COMPRADOR" + Calendar.getInstance().getTimeInMillis());
 		ObjectMapper objectMapper = new ObjectMapper();
 		
 		
@@ -207,8 +208,12 @@ public class LojaVirtualApplicationTests extends TestCase {
 	
 	@Test
 	public void testCadastraAcesso() throws ExceptionLojaVirtual {
+		
+		String descricacesso = "ROLE_ADMIN" + Calendar.getInstance().getTimeInMillis();
+		
 		Acesso acesso = new Acesso();
-		acesso.setDescricao("ROLE_ADMIN");
+		
+		acesso.setDescricao(descricacesso );
 		
 		assertEquals(true, acesso.getId() == null);
 		
@@ -218,7 +223,7 @@ public class LojaVirtualApplicationTests extends TestCase {
 		assertEquals(true, acesso.getId() > 0);
 		
 	//	validar dados salvos da forma correta
-		assertEquals("ROLE_ADMIN", acesso.getDescricao());
+		assertEquals(descricacesso, acesso.getDescricao());
 		
 		// Teste de carregamento
 		
