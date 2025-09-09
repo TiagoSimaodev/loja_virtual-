@@ -1,6 +1,6 @@
 
 
-Diagrama das classes para a criação das classe Banc-end. 
+Diagrama das classes para a criação das classe Back-end. 
 
 
 
