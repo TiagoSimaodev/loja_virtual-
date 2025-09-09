@@ -1,6 +1,7 @@
 package br.com.loja.service;
 
 import java.util.Calendar;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,7 +25,19 @@ public class PessoaUserService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	@Autowired
+	private ServiceSendEmail serviceSendEmail;
+	
 	public PessoaJuridica salvarPessoaJuridica(PessoaJuridica juridica) {
+		
+		//juridica = pessoaRepository.save(juridica);
+		
+		for(int i = 0; i< juridica.getEnderecos().size(); i++) {
+			juridica.getEnderecos().get(i).setPessoa(juridica);
+			juridica.getEnderecos().get(i).setEmpresa(juridica);
+			
+			
+		}
 		
 		juridica = pessoaRepository.save(juridica);
 		
@@ -51,6 +64,17 @@ public class PessoaUserService {
 			 
 			 usuarioRepository.insereAcessoUserPj(usuarioPj.getId());
 			 
+			 StringBuilder messagemHtml = new StringBuilder();
+			 messagemHtml.append("<b>Segue abaixo seus dados de acesso para a loja virtual</b>");
+			 messagemHtml.append("<b>Login: </b> "+juridica.getEmail()+"</b><br/>");
+			 messagemHtml.append("<b>Senha: </b>").append(senha).append("<br/><br/>");
+			 messagemHtml.append("Obrigado!!");
+
+			 try {
+			 serviceSendEmail.enviarEmailHtml("Acesso gerado para loja virtual", messagemHtml.toString(), juridica.getEmail());
+			 }catch (Exception e) {
+				 e.printStackTrace();
+			 }
 		}
 		
 		return juridica;
