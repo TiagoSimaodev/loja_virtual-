@@ -34,8 +34,8 @@ public class TarefasAutomatizadasService {
 			
 			StringBuilder msg = new StringBuilder();
 			msg.append("Olá, ").append(usuario.getPessoa().getNome()).append("<br/>");
-			msg.append("Está na hora de trocar sua senha, já passou 90 dias de validade").append("<br/>");
-			msg.append("Troque sua senha da loja virtual");
+			msg.append("Sua senha ultrapassou o prazo de 90 dias, por favor altere sua senha.").append("<br/>");
+			msg.append("aceso o menu de login e faça alteração em caso de duvidar entrar em contato com o suporte de atendimento.");
 			
 			serviceSendEmail.enviarEmailHtml("Troca de senha", msg.toString(), usuario.getLogin());
 			
