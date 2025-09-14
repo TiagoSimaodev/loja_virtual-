@@ -25,7 +25,7 @@ public class TarefasAutomatizadasService {
 	// existem duas maneiras para automatizar essa tarefa, utilizando, initialDelay e fixedDelay
 	// a 2 opção seria utilizadno cron 
 	//@Scheduled(initialDelay = 2000, fixedDelay = 86400000) // Roda a cada 24 horas.
-	@Scheduled(cron =  "0 0 11 * * *", zone ="America/Brasilia")// vai rodar todo dia as 11 horas da manhã, horário de brasilia.
+	@Scheduled(cron =  "0 0 11 * * *", zone ="America/Sao_Paulo")// vai rodar todo dia as 11 horas da manhã, horário de brasilia.
 	public void notificarUserTrocaSenha() throws UnsupportedEncodingException, MessagingException, InterruptedException {
 	
 		List<Usuario> usuarios = usuarioRepository.usuarioSenhaVencida();
