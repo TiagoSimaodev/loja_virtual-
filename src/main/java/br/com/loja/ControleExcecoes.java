@@ -33,7 +33,7 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
 	
 	
 	// Captura exceções do projeto.
-	@ExceptionHandler({Exception.class, RuntimeException.class, Throwable.class})
+	//@ExceptionHandler({Exception.class, RuntimeException.class, Throwable.class})
 	@Override
 	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
@@ -47,7 +47,7 @@ public class ControleExcecoes extends ResponseEntityExceptionHandler {
 			for (ObjectError objectError : list) {
 				msg += objectError.getDefaultMessage() + "\n";
 				}
-			}if(ex instanceof HttpMessageNotReadableException ){
+			}else if(ex instanceof HttpMessageNotReadableException ){
 				msg = "Não está sendo enviado dados para o Body corpo da requisição.";
 			}else {
 				msg = ex.getMessage();

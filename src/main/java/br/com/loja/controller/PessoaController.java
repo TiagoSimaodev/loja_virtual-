@@ -1,5 +1,7 @@
 package br.com.loja.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +33,7 @@ public class PessoaController {
 	//endpoint é microservicoe é um api
 	@ResponseBody
 	@PostMapping(value = "**/salvarPj")
-	public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody PessoaJuridica pessoaJuridica) throws ExceptionLojaVirtual {
+	public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws ExceptionLojaVirtual {
 		
 		if (pessoaJuridica == null) {
 			throw new ExceptionLojaVirtual("Pessoa juridica não pode ser Null");
