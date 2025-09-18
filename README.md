@@ -1,4 +1,4 @@
-Loja Virtual - Backend
+### Loja Virtual - Backend
 
 📌 Descrição
 
@@ -8,41 +8,43 @@ pronta para integração com frontend ou outros sistemas.
 
 📌 Funcionalidades
 
-Cadastro e gerenciamento de clientes (Pessoa Física e Jurídica).
+-Cadastro e gerenciamento de clientes (Pessoa Física e Jurídica).
 
-Cadastro e gerenciamento de produtos e categorias.
+-Cadastro e gerenciamento de produtos e categorias.
 
-Processos assíncronos e envio de e-mails.
+-Processos assíncronos e envio de e-mails.
 
-Agendamento de tarefas com @Scheduled.
+-Agendamento de tarefas com @Scheduled.
 
-Validações automáticas de CPF e CNPJ com Spring Validation (@Valid).
+-Validações automáticas de CPF e CNPJ com Spring Validation (@Valid).
 
-Autenticação e autorização via JWT.
+-Autenticação e autorização via JWT.
 
-Testes unitários e de integração com JUnit e Mockito.
+-Testes unitários e de integração com JUnit e Mockito.
 
-Migrações de banco com Flyway.
+-Migrações de banco com Flyway.
 
-Performance otimizada para operações CRUD.
+-Performance otimizada para operações CRUD.
 
 📌 Tecnologias
 
-Java 17
+-Java 17
 
-Spring Boot 
+-Spring Boot 
 
-Spring Data JPA
+-Spring Data JPA
 
-Spring Security com JWT
+-Spring Security com JWT
 
-JUnit / Mockito
+-JUnit / Mockito
 
-Flyway
+-Flyway
 
-PostgreSQL / PLpgSQL
+-PostgreSQL / PLpgSQL
 
-Maven
+-Maven
+
+📌 Estrutura do Projeto
 
 src/main/java/com/loja_virtual
 ├── controller       # Endpoints REST
@@ -57,34 +59,34 @@ src/main/java/com/loja_virtual
 
 📌 Como Executar 
 
-Clone o repositório:
+-Clone o repositório:
 
-Configure o banco de dados em application.properties
+-Configure o banco de dados em application.properties
 
-Execute o projeto: 
+-Execute o projeto: 
 
-Acesse os endpoints via Postman, Insomnia ou frontend integrado
+-Acesse os endpoints via Postman, Insomnia ou frontend integrado
 
 📌 Próximos Recursos
 
-Relatórios avançados e dashboards.
+-Relatórios avançados e dashboards.
 
-Integração com APIs de pagamento (Juno, Asaas) e transporte.
+-Integração com APIs de pagamento (Juno, Asaas) e transporte.
 
-Emissão de Nota Fiscal Eletrônica.
+-Emissão de Nota Fiscal Eletrônica.
 
-Disparo de campanhas de e-mail marketing.
+-Disparo de campanhas de e-mail marketing.
 
-Deployment em AWS com HTTPS.
-
-
+-Deployment em AWS com HTTPS.
 
 
 
 
 
 
-Diagrama das classes para a criação das classe Back-end. 
+
+
+### Diagrama das classes para a criação das classe Back-end. 
 
 
 
