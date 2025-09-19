@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import br.com.loja.dto.CepDTO;
 import br.com.loja.model.PessoaFisica;
 import br.com.loja.model.PessoaJuridica;
 import br.com.loja.model.Usuario;
@@ -137,6 +139,14 @@ public class PessoaUserService {
 				
 				return pessoaFisica;
 	}
+	
+	
+	public CepDTO consultaCep(String cep) {
+		return new RestTemplate().getForEntity("https://viacep.com.br/ws/"+ cep +"/json/", CepDTO.class).getBody();
+	}
+	
+	
+	
 	
 	
 
