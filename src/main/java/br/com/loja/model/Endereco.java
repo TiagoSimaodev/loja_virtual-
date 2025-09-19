@@ -67,8 +67,15 @@ public class Endereco  implements Serializable{
 	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
 	private Pessoa empresa;
 	
+	public String getComplemento() {
+		return complemento;
+	}
 	
-
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+	
+	
 	public Pessoa getEmpresa() {
 		return empresa;
 	}
@@ -134,15 +141,10 @@ public class Endereco  implements Serializable{
 
 
 
-	public String getComplemento() {
-		return complemento;
-	}
 
-
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
+	
+	
+	
 
 
 
