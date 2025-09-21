@@ -26,6 +26,7 @@ public class LojaVirtualApplication implements AsyncConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(LojaVirtualApplication.class, args);
 	
+		
 	System.out.println(new BCryptPasswordEncoder().encode("123"));
 	
 	
