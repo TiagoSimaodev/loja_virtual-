@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.ExceptionLojaVirtual;
 import br.com.loja.dto.CepDTO;
+import br.com.loja.model.Endereco;
 import br.com.loja.model.PessoaFisica;
 import br.com.loja.model.PessoaJuridica;
+import br.com.loja.repository.EnderecoRepository;
 import br.com.loja.repository.PessoaFisicaRepository;
 import br.com.loja.repository.PessoaRepository;
 import br.com.loja.service.PessoaUserService;
@@ -32,7 +34,8 @@ public class PessoaController {
 	@Autowired
 	private PessoaUserService pessoaUserService;
 	
-	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	@ResponseBody
 	@GetMapping(value = "**/consultaCep/{cep}")
@@ -77,6 +80,25 @@ public class PessoaController {
 				pessoaJuridica.getEnderecos().get(p).setRuaLogra(cepDTO.getLogradouro());
 				pessoaJuridica.getEnderecos().get(p).setUf(cepDTO.getUf());
 			
+			}
+		}else {
+			
+			for (int p = 0; p < pessoaJuridica.getEnderecos().size(); p++) {
+				
+				Endereco enderecoTemp = enderecoRepository.findById(pessoaJuridica.getEnderecos().get(p).getId()).get();
+				
+				if (!enderecoTemp.getCep().equals(pessoaJuridica.getEnderecos().get(p).getCep())) {
+					
+					CepDTO cepDTO = pessoaUserService.consultaCep(pessoaJuridica.getEnderecos().get(p).getCep());
+					
+					pessoaJuridica.getEnderecos().get(p).setBairro(cepDTO.getBairro());
+					pessoaJuridica.getEnderecos().get(p).setCidade(cepDTO.getLocalidade());
+					pessoaJuridica.getEnderecos().get(p).setComplemento(cepDTO.getComplemento());
+					pessoaJuridica.getEnderecos().get(p).setRuaLogra(cepDTO.getLogradouro());
+					pessoaJuridica.getEnderecos().get(p).setUf(cepDTO.getUf());
+				
+				}
+				
 			}
 		}
 		
