@@ -24,6 +24,7 @@ import br.com.loja.repository.EnderecoRepository;
 import br.com.loja.repository.PessoaFisicaRepository;
 import br.com.loja.repository.PessoaRepository;
 import br.com.loja.service.PessoaUserService;
+import br.com.loja.service.ServiceContagemAcessoApi;
 import br.com.loja.util.ValidaCNPJ;
 import br.com.loja.util.ValidaCPF;
 
@@ -44,7 +45,8 @@ public class PessoaController {
 	private PessoaFisicaRepository pessoaFisicaRepository;
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private ServiceContagemAcessoApi serviceContagemAcessoApi;
+
 	
 	@ResponseBody
 	@GetMapping(value = "**/consultaPfNome/{nome}")
@@ -52,7 +54,7 @@ public class PessoaController {
 		
 		List<PessoaFisica> fisicas = pessoaFisicaRepository.pesquisaPorNomePf(nome.trim().toUpperCase());
 		
-		jdbcTemplate.execute("begin; update tabela_acesso_end_point set qtd_acesso_end_point = qtd_acesso_end_point + 1 where nome_and_point = 'END-POINT-NOME-PESSOA-FISICA' ; commit;");
+		serviceContagemAcessoApi.atualizaAcessoEndPointPf();
 		
 		return new ResponseEntity<List<PessoaFisica>>(fisicas, HttpStatus.OK);
 		
