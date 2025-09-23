@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.ExceptionLojaVirtual;
 import br.com.loja.dto.CepDTO;
+import br.com.loja.dto.ConsultaCnpjDTO;
+import br.com.loja.enums.TipoPessoa;
 import br.com.loja.model.Endereco;
 import br.com.loja.model.PessoaFisica;
 import br.com.loja.model.PessoaJuridica;
@@ -101,6 +103,14 @@ public class PessoaController {
 	}
 	
 	
+	@ResponseBody
+	@GetMapping(value = "**/consultaCnpjReceitaWs/{cnpj}")
+	public ResponseEntity<ConsultaCnpjDTO> consultaCnpjReceitaWs(@PathVariable("cnpj") String cnpj){
+		
+		return new ResponseEntity<ConsultaCnpjDTO>( pessoaUserService.consultaCnpjReceitaWs(cnpj), HttpStatus.OK);
+	
+	}
+	
 	
 	
 	
@@ -111,6 +121,11 @@ public class PessoaController {
 		
 		if (pessoaJuridica == null) {
 			throw new ExceptionLojaVirtual("Pessoa juridica não pode ser Null");
+		}
+		
+		
+		if(pessoaJuridica.getTipoPessoa() == null) {
+			throw new ExceptionLojaVirtual("Informe o tipo Juridico ou Fornecedor da loja");
 		}
 		
 		if(pessoaJuridica.getId() == null && pessoaRepository.existeCnpjCadastrado(pessoaJuridica.getCnpj()) != null ) {
@@ -173,6 +188,11 @@ public class PessoaController {
 		
 		if (pessoaFisica == null) {
 			throw new ExceptionLojaVirtual("Pessoa Fisica não pode ser Null");
+		}
+		
+		
+		if(pessoaFisica.getTipoPessoa() == null) {
+			pessoaFisica.setTipoPessoa(TipoPessoa.FISICA.name());
 		}
 		
 		if(pessoaFisica.getId() == null && pessoaRepository.existeCpfCadastrado(pessoaFisica.getCpf()) != null ) {
