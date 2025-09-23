@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.loja.dto.CepDTO;
+import br.com.loja.dto.ConsultaCnpjDTO;
 import br.com.loja.model.PessoaFisica;
 import br.com.loja.model.PessoaJuridica;
 import br.com.loja.model.Usuario;
@@ -146,7 +147,10 @@ public class PessoaUserService {
 	}
 	
 	
-	
+	public ConsultaCnpjDTO consultaCnpjReceitaWs (String cnpj) {
+		return new RestTemplate().getForEntity("https://receitaws.com.br/v1/cnpj/" + cnpj, ConsultaCnpjDTO.class).getBody();
+
+	}
 	
 	
 
