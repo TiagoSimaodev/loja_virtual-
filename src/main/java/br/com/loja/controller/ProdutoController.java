@@ -34,12 +34,29 @@ public class ProdutoController {
 	@PostMapping(value = "**/salvarProduto") // mapeando a url para receber JSON
 	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionLojaVirtual {//Recebe o json e converte para objeto
 		
+		//para validar se existe empresa, para evitar nullpointerException
+		if(produto.getEmpresa() == null || produto.getEmpresa().getId() <= 0) {
+			throw new ExceptionLojaVirtual("Empresa responsável deve ser informada");
+
+		}
+		
+		
 		if (produto.getId() == null) {
-			List<Produto> produtos = produtoRepository.buscarProdutoNome(produto.getNome().toUpperCase());
+			List<Produto> produtos = produtoRepository.buscarProdutoNome(produto.getNome().toUpperCase(), produto.getEmpresa().getId());
 			
 			if(!produtos.isEmpty()) {
 				throw new ExceptionLojaVirtual("Já existe um Produto com esse nome: " + produto.getNome());
 			}
+		}
+		
+		
+		
+		if(produto.getCategoriaProduto() == null || produto.getCategoriaProduto().getId() <= 0) {
+			throw new ExceptionLojaVirtual("A Categoria deve ser informada. ");
+		}
+		
+		if (produto.getMarcaProduto() == null || produto.getMarcaProduto().getId() <= 0) {
+			throw new ExceptionLojaVirtual("A Marca deve ser informada");
 		}
 		
 		Produto produtoSalvo = produtoRepository.save(produto);
