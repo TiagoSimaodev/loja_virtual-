@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "nota_item_produto")
@@ -27,6 +28,7 @@ public class NotaItemProduto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_item_produto")
 	private Long id;
 	
+	//@Size(min = 1, message = "Informe a quantidade do produto")
 	@Column(nullable = false)
 	private Double quantidade;
 	
@@ -42,8 +44,13 @@ public class NotaItemProduto implements Serializable {
 	@JoinColumn(name = "empresa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
 	private Pessoa empresa;
 	
+	public Double getQuantidade() {
+		return quantidade;
+	}
 	
-	
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
+	}
 	
 	
 	public Pessoa getEmpresa() {
@@ -62,13 +69,7 @@ public class NotaItemProduto implements Serializable {
 		this.id = id;
 	}
 
-	public Double getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Double quantidade) {
-		this.quantidade = quantidade;
-	}
+	
 
 	public Produto getProduto() {
 		return produto;
