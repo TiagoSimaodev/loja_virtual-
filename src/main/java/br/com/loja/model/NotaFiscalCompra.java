@@ -43,14 +43,14 @@ public class NotaFiscalCompra implements Serializable {
 	
 	private String descricaoObs;
 	
-	@Size(min = 1, message = "Informe o valor do ICMS maior que R$ 1 real")
+	//@Size(min = 1, message = "Informe o valor total maior que R$ 1 real")
 	@NotNull(message = "Informe o valor toal da nota ")
 	@Column(nullable = false)
 	private BigDecimal valorTotal;
 	
 	private BigDecimal valorDesconto;
 	
-	@Size(min = 1, message = "Informe o valor do ICMS maior que R$ 1 real")
+	//@Size(min = 1, message = "Informe o valor do ICMS maior que R$ 1 real")
 	@NotNull(message = "Informe o valor do ICMS")
 	@Column(nullable = false)
 	private BigDecimal valorIcms;
