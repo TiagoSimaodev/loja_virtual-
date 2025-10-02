@@ -1,7 +1,9 @@
 package br.com.loja.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.loja.ExceptionLojaVirtual;
 import br.com.loja.model.Produto;
 import br.com.loja.repository.ProdutoRepository;
+import br.com.loja.service.ServiceSendEmail;
 
 @RestController
 public class ProdutoController {
@@ -29,10 +32,23 @@ public class ProdutoController {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
+	@Autowired
+	private ServiceSendEmail serviceSendEmail;
 	
 	@ResponseBody // Poder dar um retorno da API
 	@PostMapping(value = "**/salvarProduto") // mapeando a url para receber JSON
-	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionLojaVirtual {//Recebe o json e converte para objeto
+	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionLojaVirtual, UnsupportedEncodingException, MessagingException {//Recebe o json e converte para objeto
+		
+		if (produto.getTipoUnidade() == null || produto.getTipoUnidade().trim().isEmpty()) {
+			throw new ExceptionLojaVirtual("Tipo da unidade deve ser informada");
+
+		}
+		
+		if(produto.getNome().length() < 10) {
+			throw new ExceptionLojaVirtual("Nome do produto deve ter mais de 10 letras");
+
+		}
+		
 		
 		//para validar se existe empresa, para evitar nullpointerException
 		if(produto.getEmpresa() == null || produto.getEmpresa().getId() <= 0) {
@@ -59,9 +75,53 @@ public class ProdutoController {
 			throw new ExceptionLojaVirtual("A Marca deve ser informada");
 		}
 		
+		
+		if(produto.getQtdEstoque() < 1) {
+			throw new ExceptionLojaVirtual("O produto deve ter no minímo 1 no estoque");
+		}
+		
+		if(produto.getImagens() == null || produto.getImagens().isEmpty() || produto.getImagens().size() == 0) {
+			throw new ExceptionLojaVirtual("Deve ser informado imagens para o produto");
+
+		}
+		
+		if(produto.getImagens().size() < 3) {
+			throw new ExceptionLojaVirtual("Deve ser informado pelo menos 3 imagens para o produto");
+
+		}
+		
+		if (produto.getImagens().size() > 6) {
+			throw new ExceptionLojaVirtual("Deve ser informado no máximo 6 imagens");
+
+		}
+		
+		if (produto.getId() == null) {
+			
+			for (int x = 0; x < produto.getImagens().size(); x++) {
+				produto.getImagens().get(x).setProduto(produto);
+				produto.getImagens().get(x).setEmpresa(produto.getEmpresa());
+			}
+			
+		}
+		
+		
+		
+		
 		Produto produtoSalvo = produtoRepository.save(produto);
 		
+		if (produto.getAlertaQtdeEstoque() && produto.getQtdEstoque() <= 1) {
+			StringBuilder html = new StringBuilder();
+			html.append("<h2>").append("Produto: " + produto.getNome()).
+				 append("com estoque baixo: " + produto.getQtdEstoque());
+			html.append("<p> Id Prod: ").append(produto.getId()).append("</p>");
+			
+			if(produto.getEmpresa().getEmail() != null) {
+				serviceSendEmail.enviarEmailHtml("Produto sem estoque", html.toString(), produto.getEmpresa().getEmail());
+			}
+		}
+		
 		return new ResponseEntity<Produto>(produtoSalvo, HttpStatus.OK);
+		
 	}
 	
 	@ResponseBody
@@ -71,8 +131,8 @@ public class ProdutoController {
 		
 		return new ResponseEntity<String>("Produto Removido",HttpStatus.OK);
 		
-		
 	}
+	
 	
 	@ResponseBody
 	@DeleteMapping(value ="**/deleteProdutoPorId/{id}")
@@ -82,7 +142,6 @@ public class ProdutoController {
 		produtoRepository.deleteById(id);
 		
 		return new ResponseEntity<String>("Produto Removido",HttpStatus.OK);
-		
 		
 	}
 	
@@ -97,9 +156,7 @@ public class ProdutoController {
 			throw new ExceptionLojaVirtual("Não encontrou produto  com código: " + id);
 		}
 		
-		
 		return new ResponseEntity<Produto>(produto,HttpStatus.OK);
-		
 		
 	}
 	
@@ -112,10 +169,7 @@ public class ProdutoController {
 		
 		return new ResponseEntity<List<Produto>>(produto,HttpStatus.OK);
 		
-		
 	}
-	
-	
 	
 	
 }
