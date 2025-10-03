@@ -1,10 +1,16 @@
 package br.com.loja.controller;
 
-import java.io.UnsupportedEncodingException;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
+import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +43,7 @@ public class ProdutoController {
 	
 	@ResponseBody // Poder dar um retorno da API
 	@PostMapping(value = "**/salvarProduto") // mapeando a url para receber JSON
-	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionLojaVirtual, UnsupportedEncodingException, MessagingException {//Recebe o json e converte para objeto
+	public ResponseEntity<Produto> salvarProduto(@RequestBody @Valid Produto produto) throws ExceptionLojaVirtual, MessagingException, IOException {//Recebe o json e converte para objeto
 		
 		if (produto.getTipoUnidade() == null || produto.getTipoUnidade().trim().isEmpty()) {
 			throw new ExceptionLojaVirtual("Tipo da unidade deve ser informada");
@@ -100,6 +106,45 @@ public class ProdutoController {
 			for (int x = 0; x < produto.getImagens().size(); x++) {
 				produto.getImagens().get(x).setProduto(produto);
 				produto.getImagens().get(x).setEmpresa(produto.getEmpresa());
+			
+				String base64Image= "";
+				
+				if (produto.getImagens().get(x).getImagemOriginal().contains("data:image")) {
+					base64Image = produto.getImagens().get(x).getImagemOriginal().split(",")[1];
+				}else {
+					base64Image = produto.getImagens().get(x).getImagemOriginal();
+				}
+				
+				byte[] imagemBytes = DatatypeConverter.parseBase64Binary(base64Image);
+				
+				BufferedImage bufferedImage = ImageIO.read(new ByteArrayInputStream(imagemBytes));
+				
+				
+				if (bufferedImage != null) {
+					
+					int type = bufferedImage.getType() == 0 ? bufferedImage.TYPE_INT_ARGB : bufferedImage.getType();
+					int largura = Integer.parseInt("800");
+					int altura = Integer.parseInt("600");
+					
+					BufferedImage resizedImage = new BufferedImage(largura, altura, type);
+					Graphics2D g = resizedImage.createGraphics();
+					g.drawImage(bufferedImage, 0, 0, largura, altura, null);
+					g.dispose();
+					
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
+					ImageIO.write(resizedImage, "png", baos);
+					
+					String miniImgBase64 = "data:image/png;base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
+					
+					produto.getImagens().get(x).setImagemMiniatura(miniImgBase64);
+					
+					bufferedImage.flush();
+					resizedImage.flush();
+					baos.flush();
+					baos.close();
+					
+				}
+				
 			}
 			
 		}
