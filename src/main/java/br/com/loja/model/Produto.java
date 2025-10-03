@@ -73,10 +73,10 @@ public class Produto implements Serializable {
 	private BigDecimal valorVenda = BigDecimal.ZERO;
 	
 	@Column(nullable = false)
-	private Integer QtdEstoque = 0;
+	private Integer qtdEstoque = 0;
 	
 	
-	private Integer QtdeAlertaEstoque = 0;
+	private Integer qtdeAlertaEstoque = 0;
 	
 	private String linkYoutube;
 	
@@ -216,21 +216,24 @@ public class Produto implements Serializable {
 		this.valorVenda = valorVenda;
 	}
 
-	public Integer getQtdEstoque() {
-		return QtdEstoque;
-	}
-
-	public void setQtdEstoque(Integer qtdEstoque) {
-		QtdEstoque = qtdEstoque;
-	}
-
+	
 	public Integer getQtdeAlertaEstoque() {
-		return QtdeAlertaEstoque;
+		return qtdeAlertaEstoque;
 	}
-
+	
 	public void setQtdeAlertaEstoque(Integer qtdeAlertaEstoque) {
-		QtdeAlertaEstoque = qtdeAlertaEstoque;
+		this.qtdeAlertaEstoque = qtdeAlertaEstoque;
 	}
+	
+	public Integer getQtdEstoque() {
+		return qtdEstoque;
+	}
+	
+	public void setQtdEstoque(Integer qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
+	}
+	
+	
 
 	public String getLinkYoutube() {
 		return linkYoutube;
