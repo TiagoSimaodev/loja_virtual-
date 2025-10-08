@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,5 +22,9 @@ public interface AvaliacaoProdutoRepository extends JpaRepository<AvaliacaoProdu
 	
 	@Query(value = "select a from AvaliacaoProduto a where a.pessoa.id = ?1 ")
 	List<AvaliacaoProduto> avaliacaoPessoa(Long idPessoa);
+	
+	@Query("SELECT a FROM AvaliacaoProduto a WHERE a.produto.id = :idProduto")
+	AvaliacaoProduto findByProdutoId(@Param("idProduto") Long idProduto);
+
 	
 }
