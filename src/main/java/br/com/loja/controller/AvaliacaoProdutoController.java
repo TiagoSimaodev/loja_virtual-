@@ -1,6 +1,8 @@
 package br.com.loja.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.ExceptionLojaVirtual;
+import br.com.loja.dto.AvaliacaoProdutoDTO;
+import br.com.loja.dto.ImagemProdutoDTO;
 import br.com.loja.model.Acesso;
 import br.com.loja.model.AvaliacaoProduto;
 import br.com.loja.repository.AvaliacaoProdutoRepository;
@@ -64,38 +68,81 @@ public class AvaliacaoProdutoController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value ="**/AvalicaoProduto/{idProduto}")
-	public ResponseEntity<List<AvaliacaoProduto>> AvalicaoProduto(@PathVariable("idProduto") Long idProduto){
-		List<AvaliacaoProduto> avaliacaoProdutos = avaliacaoProdutoRepository.avaliacaoProduto(idProduto);
-		
-		
-		return new ResponseEntity<List<AvaliacaoProduto>>(avaliacaoProdutos,HttpStatus.OK);
-		
-		
+	@GetMapping(value = "**/AvaliacaoProduto/{idProduto}")
+	public ResponseEntity<List<AvaliacaoProdutoDTO>> getAvaliacaoProduto(@PathVariable("idProduto") Long idProduto) {
+
+	    // Buscar todas as avaliações do produto
+	    List<AvaliacaoProduto> avaliacoes = avaliacaoProdutoRepository.avaliacaoProduto(idProduto);
+
+	    // Criar lista de DTOs
+	    List<AvaliacaoProdutoDTO> avaliacoesDTO = new ArrayList();
+
+	    // Mapear cada AvaliacaoProduto para AvaliacaoProdutoDTO
+	    for (AvaliacaoProduto a : avaliacoes) {
+	        AvaliacaoProdutoDTO dto = new AvaliacaoProdutoDTO();
+	        dto.setId(a.getId());
+	        dto.setEmpresa(a.getEmpresa().getId());
+	        dto.setProduto(a.getProduto().getId());
+	        dto.setNota(a.getNota());
+	        dto.setDescricao(a.getDescricao());
+	        dto.setPessoa(a.getPessoa().getId());
+	        avaliacoesDTO.add(dto);
+	    }
+
+	    // Retornar lista de DTOs
+	    return new ResponseEntity<>(avaliacoesDTO, HttpStatus.OK);
 	}
+
+
 	
 	
 	@ResponseBody
 	@GetMapping(value ="**/AvalicaoProdutoPessoa/{idProduto}/{idPessoa}")
-	public ResponseEntity<List<AvaliacaoProduto>> AvalicaoProdutoPessoa(@PathVariable("idProduto") Long idProduto, @PathVariable("idPessoa") Long idPessoa){
-		List<AvaliacaoProduto> avaliacaoProdutoPessoa = avaliacaoProdutoRepository.avaliacaoProdutoPessoa(idProduto, idPessoa);
-		
-		
-		return new ResponseEntity<List<AvaliacaoProduto>>(avaliacaoProdutoPessoa,HttpStatus.OK);
-		
-		
+	public ResponseEntity<List<AvaliacaoProdutoDTO>> AvalicaoProdutoPessoa(
+	        @PathVariable("idProduto") Long idProduto, 
+	        @PathVariable("idPessoa") Long idPessoa) {
+
+	    List<AvaliacaoProduto> avaliacoes = avaliacaoProdutoRepository.avaliacaoProdutoPessoa(idProduto, idPessoa);
+
+	    List<AvaliacaoProdutoDTO> avaliacoesDTO = new ArrayList<>();
+
+	    for (AvaliacaoProduto a : avaliacoes) {
+	        AvaliacaoProdutoDTO dto = new AvaliacaoProdutoDTO();
+	        dto.setId(a.getId());
+	        dto.setEmpresa(a.getEmpresa().getId());
+	        dto.setProduto(a.getProduto().getId());
+	        dto.setNota(a.getNota());
+	        dto.setDescricao(a.getDescricao());
+	        dto.setPessoa(a.getPessoa().getId());
+	        avaliacoesDTO.add(dto);
+	    }
+
+	    return new ResponseEntity<>(avaliacoesDTO, HttpStatus.OK);
 	}
+
 	
 	@ResponseBody
 	@GetMapping(value ="**/AvaliacaoPessoa/{idPessoa}")
-	public ResponseEntity<List<AvaliacaoProduto>> AvaliacaoPessoa(@PathVariable("idPessoa") Long idPessoa){
-		List<AvaliacaoProduto> avaliacaoPessoa = avaliacaoProdutoRepository.avaliacaoPessoa(idPessoa);
-		
-		
-		return new ResponseEntity<List<AvaliacaoProduto>>(avaliacaoPessoa,HttpStatus.OK);
-		
-		
+	public ResponseEntity<List<AvaliacaoProdutoDTO>> AvaliacaoPessoa(@PathVariable("idPessoa") Long idPessoa) {
+
+	    List<AvaliacaoProduto> avaliacoes = avaliacaoProdutoRepository.avaliacaoPessoa(idPessoa);
+
+	    List<AvaliacaoProdutoDTO> avaliacoesDTO = new ArrayList<>();
+
+	    for (AvaliacaoProduto a : avaliacoes) {
+	        AvaliacaoProdutoDTO dto = new AvaliacaoProdutoDTO();
+	        dto.setId(a.getId());
+	        dto.setEmpresa(a.getEmpresa().getId());
+	        dto.setProduto(a.getProduto().getId());
+	        dto.setNota(a.getNota());
+	        dto.setDescricao(a.getDescricao());
+	        dto.setPessoa(a.getPessoa().getId());
+	        avaliacoesDTO.add(dto);
+	    }
+
+	    return new ResponseEntity<>(avaliacoesDTO, HttpStatus.OK);
 	}
+
 	
 	
 	
