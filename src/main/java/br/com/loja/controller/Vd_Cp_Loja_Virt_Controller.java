@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.loja.model.Endereco;
 import br.com.loja.model.VendaCompraLojaVirtual;
+import br.com.loja.repository.EnderecoRepository;
 import br.com.loja.repository.Vd_Cp_loja_virtual_repository;
 
 @RestController
@@ -19,11 +21,19 @@ public class Vd_Cp_Loja_Virt_Controller {
 	@Autowired
 	private Vd_Cp_loja_virtual_repository vd_Cp_loja_virtual_repository;
 	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	
 	@ResponseBody
 	@PostMapping(value = "**/salvarVendaLoja")
 	public ResponseEntity<VendaCompraLojaVirtual> salvarVendaLoja(@RequestBody @Valid VendaCompraLojaVirtual vendaCompraLojaVirtual) {
 		
+		Endereco enderecoCobranca = enderecoRepository.save(vendaCompraLojaVirtual.getEnderecoCobranca());
+		vendaCompraLojaVirtual.setEnderecoCobranca(enderecoCobranca);
 		
+		Endereco enderecoEntrega = enderecoRepository.save(vendaCompraLojaVirtual.getEnderecoEntrega());
+		vendaCompraLojaVirtual.setEnderecoEntrega(enderecoEntrega);
 		
 		VendaCompraLojaVirtual salvarVendaLojaSalvo = vd_Cp_loja_virtual_repository.save(vendaCompraLojaVirtual);
 		
