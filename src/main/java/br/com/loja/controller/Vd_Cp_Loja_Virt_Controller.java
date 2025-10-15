@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.ExceptionLojaVirtual;
+import br.com.loja.dto.VendaCompraLojaVirtualDTO;
 import br.com.loja.model.Endereco;
 import br.com.loja.model.PessoaFisica;
 import br.com.loja.model.VendaCompraLojaVirtual;
 import br.com.loja.repository.EnderecoRepository;
+import br.com.loja.repository.NotaIFiscalVendaRepository;
 import br.com.loja.repository.PessoaFisicaRepository;
 import br.com.loja.repository.Vd_Cp_loja_virtual_repository;
 
@@ -31,26 +33,46 @@ public class Vd_Cp_Loja_Virt_Controller {
 	@Autowired
 	private PessoaController pessoaController;
 	
+	@Autowired
+	private NotaIFiscalVendaRepository notaIFiscalVendaRepository;
+	
+	
 	@ResponseBody
 	@PostMapping(value = "**/salvarVendaLoja")
-	public ResponseEntity<VendaCompraLojaVirtual> salvarVendaLoja(@RequestBody @Valid VendaCompraLojaVirtual vendaCompraLojaVirtual) throws ExceptionLojaVirtual {
+	public ResponseEntity<VendaCompraLojaVirtualDTO> salvarVendaLoja(@RequestBody @Valid VendaCompraLojaVirtual vendaCompraLojaVirtual) throws ExceptionLojaVirtual {
 		
 		
-		
+		vendaCompraLojaVirtual.getPessoa().setEmpresa(vendaCompraLojaVirtual.getEmpresa());
 		PessoaFisica pessoaFisica = pessoaController.salvarPf(vendaCompraLojaVirtual.getPessoa()).getBody();
 		vendaCompraLojaVirtual.setPessoa(pessoaFisica);
 		
 		vendaCompraLojaVirtual.getEnderecoCobranca().setPessoa(pessoaFisica);
+		vendaCompraLojaVirtual.getEnderecoCobranca().setEmpresa(vendaCompraLojaVirtual.getEmpresa());
 		Endereco enderecoCobranca = enderecoRepository.save(vendaCompraLojaVirtual.getEnderecoCobranca());
 		vendaCompraLojaVirtual.setEnderecoCobranca(enderecoCobranca);
 		
 		vendaCompraLojaVirtual.getEnderecoEntrega().setPessoa(pessoaFisica);
+		vendaCompraLojaVirtual.getEnderecoEntrega().setEmpresa(vendaCompraLojaVirtual.getEmpresa());
 		Endereco enderecoEntrega = enderecoRepository.save(vendaCompraLojaVirtual.getEnderecoEntrega());
 		vendaCompraLojaVirtual.setEnderecoEntrega(enderecoEntrega);
 		
-		VendaCompraLojaVirtual salvarVendaLojaSalvo = vd_Cp_loja_virtual_repository.save(vendaCompraLojaVirtual);
+		//associa a nota fiscal a empresa
+		vendaCompraLojaVirtual.getNotaFiscalVenda().setEmpresa(vendaCompraLojaVirtual.getEmpresa());
+
+		// salva primeiro a venda e todos os dados
+		VendaCompraLojaVirtual salvarVendaLojaSalvo = vd_Cp_loja_virtual_repository.saveAndFlush(vendaCompraLojaVirtual);
 		
-		return new ResponseEntity<VendaCompraLojaVirtual>(salvarVendaLojaSalvo, HttpStatus.CREATED);
+		// Associa a venda gravada no banco com a nota fiscal
+		vendaCompraLojaVirtual.getNotaFiscalVenda().setVendaCompraLojaVirtual(vendaCompraLojaVirtual);
+		
+		// Persiste novamente a nota fiscal novamente para ficar amarrada na venda
+		notaIFiscalVendaRepository.saveAndFlush(vendaCompraLojaVirtual.getNotaFiscalVenda());
+		salvarVendaLojaSalvo = vd_Cp_loja_virtual_repository.saveAndFlush(vendaCompraLojaVirtual);
+
+		VendaCompraLojaVirtualDTO compraLojaVirtualDTO = new VendaCompraLojaVirtualDTO();
+		compraLojaVirtualDTO.setValorTotal(vendaCompraLojaVirtual.getValorTotal());
+		
+		return new ResponseEntity<VendaCompraLojaVirtualDTO>(compraLojaVirtualDTO, HttpStatus.CREATED);
 		
 		
 	}
