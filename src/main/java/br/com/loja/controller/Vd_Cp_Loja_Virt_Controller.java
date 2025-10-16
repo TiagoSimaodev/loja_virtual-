@@ -71,6 +71,7 @@ public class Vd_Cp_Loja_Virt_Controller {
 
 		VendaCompraLojaVirtualDTO compraLojaVirtualDTO = new VendaCompraLojaVirtualDTO();
 		compraLojaVirtualDTO.setValorTotal(vendaCompraLojaVirtual.getValorTotal());
+		compraLojaVirtualDTO.setPessoa(vendaCompraLojaVirtual.getPessoa());
 		
 		return new ResponseEntity<VendaCompraLojaVirtualDTO>(compraLojaVirtualDTO, HttpStatus.CREATED);
 		
