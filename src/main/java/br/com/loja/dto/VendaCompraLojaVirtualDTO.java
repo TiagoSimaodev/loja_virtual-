@@ -9,12 +9,32 @@ public class VendaCompraLojaVirtualDTO {
 	
 	private BigDecimal valorTotal;
 	
+	private BigDecimal valorDesc;
+
 	private Pessoa pessoa;
 	
 	private Endereco cobranca;
 	
 	private Endereco entrega;
-
+	
+	private BigDecimal valorFrete;
+	
+	public BigDecimal getValorFrete() {
+		return valorFrete;
+	}
+	
+	public void setValorFrete(BigDecimal valorFrete) {
+		this.valorFrete = valorFrete;
+	}
+	
+	public BigDecimal getValorDesc() {
+		return valorDesc;
+	}
+	
+	public void setValorDesc(BigDecimal valorDesc) {
+		this.valorDesc = valorDesc;
+	}
+	
 	
 	public Endereco getCobranca() {
 		return cobranca;
