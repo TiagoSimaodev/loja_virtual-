@@ -5,6 +5,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -75,6 +77,9 @@ public class Vd_Cp_Loja_Virt_Controller {
 		
 		compraLojaVirtualDTO.setCobranca(vendaCompraLojaVirtual.getEnderecoCobranca());
 		compraLojaVirtualDTO.setEntrega(vendaCompraLojaVirtual.getEnderecoEntrega());
+		compraLojaVirtualDTO.setValorDesc(vendaCompraLojaVirtual.getValorDesconto());
+		compraLojaVirtualDTO.setValorFrete(vendaCompraLojaVirtual.getValorFrete());
+		
 		
 		return new ResponseEntity<VendaCompraLojaVirtualDTO>(compraLojaVirtualDTO, HttpStatus.CREATED);
 		
@@ -82,5 +87,26 @@ public class Vd_Cp_Loja_Virt_Controller {
 	}
 	
 		
+	@ResponseBody
+	@GetMapping(value = "**/consultaVendaId/{id}")
+	public ResponseEntity<VendaCompraLojaVirtualDTO> consultaVendaId(@PathVariable("id") Long idVenda){
+		
+		VendaCompraLojaVirtual compraLojaVirtual = vd_Cp_loja_virtual_repository.findById(idVenda).get();
+		
+		VendaCompraLojaVirtualDTO compraLojaVirtualDTO = new VendaCompraLojaVirtualDTO();
+		
+		compraLojaVirtualDTO.setValorTotal(compraLojaVirtual.getValorTotal());
+		compraLojaVirtualDTO.setPessoa(compraLojaVirtual.getPessoa());
+		
+		compraLojaVirtualDTO.setCobranca(compraLojaVirtual.getEnderecoEntrega());
+		compraLojaVirtualDTO.setEntrega(compraLojaVirtual.getEnderecoEntrega());
+		compraLojaVirtualDTO.setValorDesc(compraLojaVirtual.getValorDesconto());
+		compraLojaVirtualDTO.setValorFrete(compraLojaVirtualDTO.getValorFrete());
+		
+		return new ResponseEntity<VendaCompraLojaVirtualDTO>(compraLojaVirtualDTO, HttpStatus.OK);
+		
+		
+	}
+	
 	
 }
