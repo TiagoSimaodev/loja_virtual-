@@ -7,6 +7,8 @@ import br.com.loja.model.Pessoa;
 
 public class VendaCompraLojaVirtualDTO {
 	
+	private Long id;
+	
 	private BigDecimal valorTotal;
 	
 	private BigDecimal valorDesc;
@@ -18,6 +20,14 @@ public class VendaCompraLojaVirtualDTO {
 	private Endereco entrega;
 	
 	private BigDecimal valorFrete;
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 	public BigDecimal getValorFrete() {
 		return valorFrete;
