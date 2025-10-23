@@ -79,7 +79,7 @@ public class Vd_Cp_Loja_Virt_Controller {
 		compraLojaVirtualDTO.setEntrega(vendaCompraLojaVirtual.getEnderecoEntrega());
 		compraLojaVirtualDTO.setValorDesc(vendaCompraLojaVirtual.getValorDesconto());
 		compraLojaVirtualDTO.setValorFrete(vendaCompraLojaVirtual.getValorFrete());
-		
+		compraLojaVirtualDTO.setId(vendaCompraLojaVirtual.getId());
 		
 		return new ResponseEntity<VendaCompraLojaVirtualDTO>(compraLojaVirtualDTO, HttpStatus.CREATED);
 		
@@ -91,7 +91,7 @@ public class Vd_Cp_Loja_Virt_Controller {
 	@GetMapping(value = "**/consultaVendaId/{id}")
 	public ResponseEntity<VendaCompraLojaVirtualDTO> consultaVendaId(@PathVariable("id") Long idVenda){
 		
-		VendaCompraLojaVirtual compraLojaVirtual = vd_Cp_loja_virtual_repository.findById(idVenda).get();
+		VendaCompraLojaVirtual compraLojaVirtual = vd_Cp_loja_virtual_repository.findById(idVenda).orElse(new VendaCompraLojaVirtual());
 		
 		VendaCompraLojaVirtualDTO compraLojaVirtualDTO = new VendaCompraLojaVirtualDTO();
 		
@@ -102,6 +102,7 @@ public class Vd_Cp_Loja_Virt_Controller {
 		compraLojaVirtualDTO.setEntrega(compraLojaVirtual.getEnderecoEntrega());
 		compraLojaVirtualDTO.setValorDesc(compraLojaVirtual.getValorDesconto());
 		compraLojaVirtualDTO.setValorFrete(compraLojaVirtualDTO.getValorFrete());
+		compraLojaVirtualDTO.setId(compraLojaVirtual.getId());
 		
 		return new ResponseEntity<VendaCompraLojaVirtualDTO>(compraLojaVirtualDTO, HttpStatus.OK);
 		
