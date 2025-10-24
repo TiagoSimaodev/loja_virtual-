@@ -1,6 +1,8 @@
 package br.com.loja.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.loja.model.Endereco;
 import br.com.loja.model.Pessoa;
@@ -20,6 +22,16 @@ public class VendaCompraLojaVirtualDTO {
 	private Endereco entrega;
 	
 	private BigDecimal valorFrete;
+	
+	private List<ItemVendaLojaDTO> itemVendaLoja = new ArrayList<ItemVendaLojaDTO>();
+	
+	public List<ItemVendaLojaDTO> getItemVendaLoja() {
+		return itemVendaLoja;
+	}
+	
+	public void setItemVendaLoja(List<ItemVendaLojaDTO> itemVendaLoja) {
+		this.itemVendaLoja = itemVendaLoja;
+	}
 	
 	public Long getId() {
 		return id;
