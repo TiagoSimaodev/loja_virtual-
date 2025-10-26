@@ -6,7 +6,7 @@ public class ItemVendaLojaDTO {
 
 	private Double quantidade;
 	
-	private Produto produto;
+	private ProdutoDTO produto;
 
 	public Double getQuantidade() {
 		return quantidade;
@@ -16,11 +16,11 @@ public class ItemVendaLojaDTO {
 		this.quantidade = quantidade;
 	}
 
-	public Produto getProduto() {
+	public ProdutoDTO getProduto() {
 		return produto;
 	}
-
-	public void setProduto(Produto produto) {
+	
+	public void setProduto(ProdutoDTO produto) {
 		this.produto = produto;
 	}
 	
