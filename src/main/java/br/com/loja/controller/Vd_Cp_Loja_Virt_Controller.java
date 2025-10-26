@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.ExceptionLojaVirtual;
 import br.com.loja.dto.ItemVendaLojaDTO;
+import br.com.loja.dto.ProdutoDTO;
 import br.com.loja.dto.VendaCompraLojaVirtualDTO;
 import br.com.loja.model.Endereco;
 import br.com.loja.model.ItemVendaLoja;
 import br.com.loja.model.PessoaFisica;
+import br.com.loja.model.Produto;
 import br.com.loja.model.VendaCompraLojaVirtual;
 import br.com.loja.repository.EnderecoRepository;
 import br.com.loja.repository.NotaIFiscalVendaRepository;
@@ -90,7 +92,17 @@ public class Vd_Cp_Loja_Virt_Controller {
 		for (ItemVendaLoja item : vendaCompraLojaVirtual.getItemVendaLojas()) {
 			ItemVendaLojaDTO itemVendaLojaDTO = new ItemVendaLojaDTO();
 			itemVendaLojaDTO.setQuantidade(item.getQuantidade());
-			itemVendaLojaDTO.setProduto(item.getProduto());
+			
+			ProdutoDTO produtoDTO = new ProdutoDTO();
+			
+			produtoDTO.setId(item.getProduto().getId());
+			produtoDTO.setNome(item.getProduto().getNome());
+			produtoDTO.setDescricao(item.getProduto().getDescricao());
+			produtoDTO.setTipoUnidade(item.getProduto().getTipoUnidade());
+			produtoDTO.setValorVenda(item.getProduto().getValorVenda());
+			
+			
+			itemVendaLojaDTO.setProduto(produtoDTO);
 
 			compraLojaVirtualDTO.getItemVendaLoja().add(itemVendaLojaDTO);
 
@@ -121,7 +133,17 @@ public class Vd_Cp_Loja_Virt_Controller {
 		for (ItemVendaLoja item : compraLojaVirtual.getItemVendaLojas()) {
 			ItemVendaLojaDTO itemVendaLojaDTO = new ItemVendaLojaDTO();
 			itemVendaLojaDTO.setQuantidade(item.getQuantidade());
-			itemVendaLojaDTO.setProduto(item.getProduto());
+			
+			ProdutoDTO produtoDTO = new ProdutoDTO();
+			
+			produtoDTO.setId(item.getProduto().getId());
+			produtoDTO.setDescricao(item.getProduto().getDescricao());
+			produtoDTO.setNome(item.getProduto().getNome());
+			produtoDTO.setTipoUnidade(item.getProduto().getTipoUnidade());
+			produtoDTO.setValorVenda(item.getProduto().getValorVenda());
+			
+			
+			itemVendaLojaDTO.setProduto(produtoDTO);
 
 			compraLojaVirtualDTO.getItemVendaLoja().add(itemVendaLojaDTO);
 
