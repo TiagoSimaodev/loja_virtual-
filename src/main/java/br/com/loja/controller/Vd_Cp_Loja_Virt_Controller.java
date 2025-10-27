@@ -20,10 +20,12 @@ import br.com.loja.model.Endereco;
 import br.com.loja.model.ItemVendaLoja;
 import br.com.loja.model.PessoaFisica;
 import br.com.loja.model.Produto;
+import br.com.loja.model.StatusRastreio;
 import br.com.loja.model.VendaCompraLojaVirtual;
 import br.com.loja.repository.EnderecoRepository;
 import br.com.loja.repository.NotaIFiscalVendaRepository;
 import br.com.loja.repository.PessoaFisicaRepository;
+import br.com.loja.repository.StatusRastreioRepository;
 import br.com.loja.repository.Vd_Cp_loja_virtual_repository;
 
 @RestController
@@ -40,6 +42,9 @@ public class Vd_Cp_Loja_Virt_Controller {
 
 	@Autowired
 	private NotaIFiscalVendaRepository notaIFiscalVendaRepository;
+	
+	@Autowired
+	private StatusRastreioRepository statusRastreioRepository;
 
 	@ResponseBody
 	@PostMapping(value = "**/salvarVendaLoja")
@@ -71,7 +76,17 @@ public class Vd_Cp_Loja_Virt_Controller {
 		// salva primeiro a venda e todos os dados
 		VendaCompraLojaVirtual salvarVendaLojaSalvo = vd_Cp_loja_virtual_repository
 				.saveAndFlush(vendaCompraLojaVirtual);
-
+		
+		StatusRastreio statusRastreio = new StatusRastreio();
+		statusRastreio.setCentroDistribuicao("Loja Local");
+		statusRastreio.setCidade("local");
+		statusRastreio.setEmpresa(vendaCompraLojaVirtual.getEmpresa());
+		statusRastreio.setEstado("local");
+		statusRastreio.setStatus("Inicio compra");
+		statusRastreio.setVendaCompraLojaVirtual(vendaCompraLojaVirtual);
+		
+		statusRastreioRepository.save(statusRastreio);
+		
 		// Associa a venda gravada no banco com a nota fiscal
 		vendaCompraLojaVirtual.getNotaFiscalVenda().setVendaCompraLojaVirtual(vendaCompraLojaVirtual);
 
