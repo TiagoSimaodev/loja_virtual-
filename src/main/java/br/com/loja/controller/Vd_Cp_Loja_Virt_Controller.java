@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import br.com.loja.repository.NotaIFiscalVendaRepository;
 import br.com.loja.repository.PessoaFisicaRepository;
 import br.com.loja.repository.StatusRastreioRepository;
 import br.com.loja.repository.Vd_Cp_loja_virtual_repository;
+import br.com.loja.service.VendaService;
 
 @RestController
 public class Vd_Cp_Loja_Virt_Controller {
@@ -45,6 +47,9 @@ public class Vd_Cp_Loja_Virt_Controller {
 	
 	@Autowired
 	private StatusRastreioRepository statusRastreioRepository;
+	
+	@Autowired
+	private VendaService vendaService;
 
 	@ResponseBody
 	@PostMapping(value = "**/salvarVendaLoja")
@@ -166,6 +171,14 @@ public class Vd_Cp_Loja_Virt_Controller {
 
 		return new ResponseEntity<VendaCompraLojaVirtualDTO>(compraLojaVirtualDTO, HttpStatus.OK);
 
+	}
+	
+	@ResponseBody
+	@DeleteMapping(value = "**/deleteVendaTotalBanco/{idVenda}")
+	public ResponseEntity<String> deleteVendaTotalBanco(@PathVariable( value = "idVenda") Long idVenda) {
+		vendaService.exclusaoTotalVendaBanco(idVenda);
+		
+		return new ResponseEntity<String>("Venda excluida com sucesso!",HttpStatus.OK);
 	}
 
 }
