@@ -27,7 +27,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -88,6 +87,16 @@ public class VendaCompraLojaVirtual implements Serializable {
 	
 	public List<ItemVendaLoja> getItemVendaLojas() {
 		return itemVendaLojas;
+	}
+	
+	private Boolean excluido = Boolean.FALSE;
+	
+	public Boolean getExcluido() {
+		return excluido;
+	}
+	
+	public void setExcluido(Boolean excluido) {
+		this.excluido = excluido;
 	}
 	
 	public void setItemVendaLojas(List<ItemVendaLoja> itemVendaLojas) {
