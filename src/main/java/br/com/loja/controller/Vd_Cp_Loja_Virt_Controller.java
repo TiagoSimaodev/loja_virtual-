@@ -218,6 +218,8 @@ public class Vd_Cp_Loja_Virt_Controller {
 		
 		}else if (tipoconsulta.equalsIgnoreCase("POR_NOME_PROD")) {
 			compraLojaVirtual = vd_Cp_loja_virtual_repository.vendaPorNomeProduto(valor.toUpperCase().trim());
+		}else if (tipoconsulta.equalsIgnoreCase("POR_NOME_CLIENTE")) {
+			compraLojaVirtual = vd_Cp_loja_virtual_repository.vendaPorNomeCliente(valor.toUpperCase().trim());
 		}
 		
 		if (compraLojaVirtual == null) {
