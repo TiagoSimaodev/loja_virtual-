@@ -22,6 +22,9 @@ public interface Vd_Cp_loja_virtual_repository extends JpaRepository<VendaCompra
 
 	@Query(value = "select distinct(i.vendaCompraLojaVirtual) from ItemVendaLoja i where i.vendaCompraLojaVirtual.excluido = false and upper(trim(i.produto.nome)) like %?1% ")
 	List<VendaCompraLojaVirtual> vendaPorNomeProduto(String valor);
+
+	@Query(value = "select distinct(i.vendaCompraLojaVirtual) from ItemVendaLoja i where i.vendaCompraLojaVirtual.excluido = false and upper(trim(i.vendaCompraLojaVirtual.pessoa.nome)) like %?1% ")
+	List<VendaCompraLojaVirtual> vendaPorNomeCliente(String nomepessoa);
 		
 	
 	
