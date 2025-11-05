@@ -222,6 +222,8 @@ public class Vd_Cp_Loja_Virt_Controller {
 			compraLojaVirtual = vd_Cp_loja_virtual_repository.vendaPorNomeCliente(valor.toUpperCase().trim());
 		}else if (tipoconsulta.equalsIgnoreCase("POR_NOME_ENDERECO_COBRANCA")) {
 			compraLojaVirtual = vd_Cp_loja_virtual_repository.vendaPorEnderecoCobranca(valor.toUpperCase().trim());
+		}else if (tipoconsulta.equalsIgnoreCase("POR_NOME_ENDERECO_ENTREGA")) {
+			compraLojaVirtual = vd_Cp_loja_virtual_repository.vendaPorEnderecoEntrega(valor.toUpperCase().trim());
 		}
 		
 		if (compraLojaVirtual == null) {
@@ -239,7 +241,7 @@ public class Vd_Cp_Loja_Virt_Controller {
 			compraLojaVirtualDTO.setValorTotal(vel.getValorTotal());
 			compraLojaVirtualDTO.setPessoa(vel.getPessoa());
 
-			compraLojaVirtualDTO.setCobranca(vel.getEnderecoEntrega());
+			compraLojaVirtualDTO.setCobranca(vel.getEnderecoCobranca());
 			compraLojaVirtualDTO.setEntrega(vel.getEnderecoEntrega());
 			compraLojaVirtualDTO.setValorDesc(vel.getValorDesconto());
 			compraLojaVirtualDTO.setValorFrete(vel.getValorFrete());
