@@ -1,6 +1,9 @@
 package br.com.loja.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -206,11 +209,16 @@ public class Vd_Cp_Loja_Virt_Controller {
 	@ResponseBody
 	@GetMapping(value = "**/consultaVendaDinamicaFaixaData/{data1}/{data2}")
 	public ResponseEntity<List<VendaCompraLojaVirtualDTO>> 
-	consultaVendaDinamicaFaixaData(@PathVariable("data1") String data1, @PathVariable("data2") String data2) {
+	consultaVendaDinamicaFaixaData(@PathVariable("data1") String data1, @PathVariable("data2") String data2) throws ParseException {
 		
 		List<VendaCompraLojaVirtual> compraLojaVirtual = null;
 		
-		compraLojaVirtual = vd_Cp_loja_virtual_repository.consultaVendaFaixaData(data1, data2);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date d1 = dateFormat.parse(data1);
+		Date d2 = dateFormat.parse(data2);
+		
+		compraLojaVirtual = vd_Cp_loja_virtual_repository.consultaVendaFaixaData(d1, d2);
 		
 		
 		if (compraLojaVirtual == null) {
