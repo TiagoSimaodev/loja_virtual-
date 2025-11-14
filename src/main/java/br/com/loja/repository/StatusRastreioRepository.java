@@ -11,7 +11,7 @@ import br.com.loja.model.StatusRastreio;
 @Repository
 public interface StatusRastreioRepository extends JpaRepository<StatusRastreio, Long> {
 
-	@Query(value = "select s from StatusRastreio s where s.vendaCompraLojaVirtual.id = ?1")
+	@Query(value = "select s from StatusRastreio s where s.vendaCompraLojaVirtual.id = ?1 order by s.id")
 	public List<StatusRastreio> listaRastreioVenda(Long id);
 	
 }
