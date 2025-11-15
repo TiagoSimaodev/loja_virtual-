@@ -3,7 +3,7 @@ package br.com.loja.dto;
 import java.io.Serializable;
 
 public class CepDTO implements Serializable {
-
+//testando codigo
 	private static final long serialVersionUID = 1L;
 
 	private String cep;
