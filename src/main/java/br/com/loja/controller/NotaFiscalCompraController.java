@@ -16,14 +16,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.ExceptionLojaVirtual;
+import br.com.loja.dto.NotaFiscalVendaDTO;
 import br.com.loja.model.NotaFiscalCompra;
+import br.com.loja.model.NotaFiscalVenda;
 import br.com.loja.repository.NotaFiscalCompraRepository;
+import br.com.loja.repository.NotaIFiscalVendaRepository;
 
 @RestController
 public class NotaFiscalCompraController {
 
 	@Autowired
 	private NotaFiscalCompraRepository notaFiscalCompraRepository;
+	
+	@Autowired
+	private NotaIFiscalVendaRepository notaIFiscalVendaRepository;
 	
 	@ResponseBody
 	@PostMapping(value = "**/salvarNotaFiscalCompra")
@@ -88,6 +94,40 @@ public class NotaFiscalCompraController {
 		}
 
 		return new ResponseEntity<NotaFiscalCompra>(notaFiscalCompra, HttpStatus.OK);
+
+	}
+	
+	
+	@ResponseBody
+	@GetMapping(value = "**/obterNotaFiscalCompraDaVenda/{idVenda}")
+	public ResponseEntity<List<NotaFiscalVendaDTO>>obterNotaFiscalCompraDaVenda(@PathVariable("idVenda") Long idVenda) throws ExceptionLojaVirtual {
+
+		List<NotaFiscalVenda> notas = notaIFiscalVendaRepository.buscaNotaPorVenda(idVenda);
+
+		if (notas == null || notas.isEmpty()) {
+			throw new ExceptionLojaVirtual("Não encontrou Nota Fiscal venda  com código: " + idVenda);
+		}
+		
+		List<NotaFiscalVendaDTO> dtos = notas.stream().map(NotaFiscalVendaDTO::fromEntity).toList();
+		
+		return new ResponseEntity<List<NotaFiscalVendaDTO>>(dtos, HttpStatus.OK);
+
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "**/obterNotaFiscalCompraDaVendaUnica/{idVenda}")
+	public ResponseEntity<NotaFiscalVendaDTO>obterNotaFiscalCompraDaVendaUnica(@PathVariable("idVenda") Long idVenda) throws ExceptionLojaVirtual {
+
+		NotaFiscalVenda notas = notaIFiscalVendaRepository.buscaNotaPorVendaUnica(idVenda);
+
+		if (notas == null) {
+			throw new ExceptionLojaVirtual("Não encontrou Nota Fiscal venda  com código: " + idVenda);
+		}
+		
+		NotaFiscalVendaDTO dtos = NotaFiscalVendaDTO.fromEntity(notas);
+
+
+		return new ResponseEntity<NotaFiscalVendaDTO>(dtos, HttpStatus.OK);
 
 	}
 	
