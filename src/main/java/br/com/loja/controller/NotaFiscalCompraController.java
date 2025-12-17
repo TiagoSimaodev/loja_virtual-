@@ -1,5 +1,6 @@
 package br.com.loja.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.ExceptionLojaVirtual;
 import br.com.loja.dto.NotaFiscalVendaDTO;
+import br.com.loja.dto.ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO;
 import br.com.loja.model.NotaFiscalCompra;
 import br.com.loja.model.NotaFiscalVenda;
 import br.com.loja.repository.NotaFiscalCompraRepository;
 import br.com.loja.repository.NotaIFiscalVendaRepository;
+import br.com.loja.service.NotaFiscalCompraService;
 
 @RestController
 public class NotaFiscalCompraController {
@@ -30,6 +33,27 @@ public class NotaFiscalCompraController {
 	
 	@Autowired
 	private NotaIFiscalVendaRepository notaIFiscalVendaRepository;
+	
+	@Autowired
+	private NotaFiscalCompraService notaFiscalCompraService;
+	
+	@ResponseBody
+	@PostMapping(value = "**/relatorioProdCompradoNotaFiscal")
+	public ResponseEntity<List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>> relatorioProdCompradoNotaFiscal(@RequestBody ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO objetoRequisicaoRelatorioProdCompraNotaFiscaldto ) {
+		
+	
+		List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO> retorno = 
+				new ArrayList<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>();
+		
+		retorno = notaFiscalCompraService.gerarRelatorioProdCompraNota(objetoRequisicaoRelatorioProdCompraNotaFiscaldto);
+		
+		return new ResponseEntity<List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>>(retorno, HttpStatus.OK);
+	
+	}
+	
+	
+	
+	
 	
 	@ResponseBody
 	@PostMapping(value = "**/salvarNotaFiscalCompra")
