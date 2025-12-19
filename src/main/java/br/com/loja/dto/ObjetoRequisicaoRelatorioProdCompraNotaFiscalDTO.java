@@ -2,12 +2,18 @@ package br.com.loja.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 public class ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private String nomeProduto;
+	
+	@NotEmpty(message = "Informa a data inicial")
 	private String dataInicial;
+	
+	@NotEmpty(message = "Informa a data final")
 	private String dataFinal;
 	private String codigoNota;
 	private String codigoProduto;
