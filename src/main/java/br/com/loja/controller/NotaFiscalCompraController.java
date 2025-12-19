@@ -39,7 +39,7 @@ public class NotaFiscalCompraController {
 	
 	@ResponseBody
 	@PostMapping(value = "**/relatorioProdCompradoNotaFiscal")
-	public ResponseEntity<List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>> relatorioProdCompradoNotaFiscal(@RequestBody ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO objetoRequisicaoRelatorioProdCompraNotaFiscaldto ) {
+	public ResponseEntity<List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>> relatorioProdCompradoNotaFiscal(@Valid @RequestBody ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO objetoRequisicaoRelatorioProdCompraNotaFiscaldto ) {
 		
 	
 		List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO> retorno = 
