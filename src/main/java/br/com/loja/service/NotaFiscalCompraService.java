@@ -32,6 +32,26 @@ public class NotaFiscalCompraService {
 		
 		sql += " cfc.data_compra >='"+objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getDataInicial()+"' and  ";
 		sql += " cfc.data_compra <= '"+objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getDataFinal()+"' ";
+		
+		if(!objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getCodigoNota().isEmpty()) {
+			sql += " and cfc.id = " + objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getCodigoNota() + " ";
+		
+		}
+		
+		if (!objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getCodigoProduto().isEmpty()) {
+			sql += " and p.id = " + objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getCodigoProduto() + " ";
+		}
+		
+		if (!objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getNomeProduto().isEmpty()) {
+			sql += "upper(p.nome) like upper('%"+objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getNomeProduto()+"')";
+		}
+		
+		if (!objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getNomeFornecedor().isEmpty()) {
+			sql += "upper(pj.nome) like upper('%"+objetoRequisicaoRelatorioProdCompraNotaFiscaldto.getNomeFornecedor()+"')";
+
+		}
+		
+		
 		retorno = jdbcTemplate.query(sql, new BeanPropertyRowMapper(ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO.class));
 		
 		return retorno;
