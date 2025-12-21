@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.ExceptionLojaVirtual;
 import br.com.loja.dto.NotaFiscalVendaDTO;
+import br.com.loja.dto.ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO;
 import br.com.loja.dto.ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO;
 import br.com.loja.model.NotaFiscalCompra;
 import br.com.loja.model.NotaFiscalVenda;
@@ -50,6 +51,21 @@ public class NotaFiscalCompraController {
 		return new ResponseEntity<List<ObjetoRequisicaoRelatorioProdCompraNotaFiscalDTO>>(retorno, HttpStatus.OK);
 	
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "**/relatorioProdAlertaEstoque")
+	public ResponseEntity<List<ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO>> relatorioProdAlertaEstoque(@Valid @RequestBody ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO objetoRequisicaoRelatorioProdAlertaEstoqueDTO ) {
+		
+	
+		List<ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO> retorno = 
+				new ArrayList<ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO>();
+		
+		retorno = notaFiscalCompraService.gerarRelatorioAlertaEstoque(objetoRequisicaoRelatorioProdAlertaEstoqueDTO);
+		
+		return new ResponseEntity<List<ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO>>(retorno, HttpStatus.OK);
+	
+	}
+	
 	
 	
 	
