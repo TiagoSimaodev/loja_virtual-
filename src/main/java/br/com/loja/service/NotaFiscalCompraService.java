@@ -67,6 +67,11 @@ public class NotaFiscalCompraService {
 		return retorno;
 	}
 	
+	/**
+	 * Este relatório retorna os produtos que estão com estoque menor ou igual a quantidade definida no campo de qtde_alerta_estoque.
+	 * @param alertaEstoque
+	 * @return
+	 */
 	public List<ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO> gerarRelatorioAlertaEstoque(ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO  alertaEstoque) {
 		
 		

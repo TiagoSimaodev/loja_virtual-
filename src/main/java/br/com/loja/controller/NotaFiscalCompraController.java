@@ -52,6 +52,8 @@ public class NotaFiscalCompraController {
 	
 	}
 	
+	
+	
 	@ResponseBody
 	@PostMapping(value = "**/relatorioProdAlertaEstoque")
 	public ResponseEntity<List<ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO>> relatorioProdAlertaEstoque(@Valid @RequestBody ObjetoRequisicaoRelatorioProdAlertaEstoqueDTO objetoRequisicaoRelatorioProdAlertaEstoqueDTO ) {
