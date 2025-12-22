@@ -100,7 +100,7 @@ public class VendaCompraLojaVirtual implements Serializable {
 	}
 	
 	private Boolean excluido = Boolean.FALSE;
-	
+		
 	public Boolean getExcluido() {
 		return excluido;
 	}
