@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,10 +21,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.com.loja.ExceptionLojaVirtual;
+import br.com.loja.dto.ConsultaFreteDTO;
+import br.com.loja.dto.EmpresaTransporteDTO;
 import br.com.loja.dto.ItemVendaLojaDTO;
 import br.com.loja.dto.ProdutoDTO;
 import br.com.loja.dto.VendaCompraLojaVirtualDTO;
+import br.com.loja.enums.ApiTokenIntegracao;
 import br.com.loja.model.Endereco;
 import br.com.loja.model.ItemVendaLoja;
 import br.com.loja.model.PessoaFisica;
@@ -34,6 +41,10 @@ import br.com.loja.repository.NotaIFiscalVendaRepository;
 import br.com.loja.repository.StatusRastreioRepository;
 import br.com.loja.repository.Vd_Cp_loja_virtual_repository;
 import br.com.loja.service.VendaService;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 @RestController
 public class Vd_Cp_Loja_Virt_Controller {
@@ -446,5 +457,72 @@ public class Vd_Cp_Loja_Virt_Controller {
 
 	}
 	
+	@ResponseBody
+	@PostMapping(value = "**/consultarFreteLojaVirtual")
+	public ResponseEntity<List<EmpresaTransporteDTO>> 
+	consultaFrete(@RequestBody @Valid ConsultaFreteDTO consultaFreteDTO) throws  Exception {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = objectMapper.writeValueAsString(consultaFreteDTO);
+		
+		OkHttpClient cliente = new OkHttpClient().newBuilder()
+				.build();
+				MediaType mediaType = okhttp3.MediaType.parse("application/json");
+				okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, json);
+				okhttp3.Request request = new Request.Builder()
+				.url (ApiTokenIntegracao.URL_MELHOR_ENVIO_SAND_BOX +"api/v2/me/shipment/calculate")
+				.method("POST", body)
+				.addHeader("Accept", "application/json")
+				.addHeader("Content-Type","application/json")
+				.addHeader("Authorization", "Bearer " + ApiTokenIntegracao.TOKEN_MELHOR_ENVIO_SAND_BOX)
+				.addHeader("User-Agent", "tiagosimaorodri123@gmail.com")
+				.build();
+				
+				okhttp3.Response response = cliente.newCall(request).execute();
+				
+				JsonNode jsonNode = new ObjectMapper().readTree(response.body().string());
+				 
+				Iterator<JsonNode> iterator = jsonNode.iterator();
+				 
+				 List<EmpresaTransporteDTO> empresaTransporteDTOs = new ArrayList<EmpresaTransporteDTO>();
+				 
+				 while (iterator.hasNext()) {
+					 JsonNode node = iterator.next();
+					 
+					 EmpresaTransporteDTO empresaTransporteDTO = new EmpresaTransporteDTO();
+					 
+					 if(node.get("id") != null) {
+						 empresaTransporteDTO.setId(node.get("id").asText());
+					 }
+					 
+					 if (node.get("name") != null) {
+						 empresaTransporteDTO.setNome(node.get("name").asText());
+					 }
+					 
+					 if (node.get("price") != null) {
+						 empresaTransporteDTO.setValor(node.get("price").asText());
+					 }
+					 
+					 if (node.get("company") != null ) {
+						 empresaTransporteDTO.setEmpresa(node.get("company").get("name").asText());
+						 empresaTransporteDTO.setPicture(node.get("company").get("picture").asText());
+					 }
+					 
+					 if (empresaTransporteDTO.dadosOk()) {
+						 empresaTransporteDTOs.add(empresaTransporteDTO);
+					 }
+					 
+				 }
+				 
+				 
+				 
+				 return new ResponseEntity<List<EmpresaTransporteDTO>>(empresaTransporteDTOs, HttpStatus.OK);
+		
+	}
+	
 
+	
+	
+	
+	
 }
