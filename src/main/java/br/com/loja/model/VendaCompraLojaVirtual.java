@@ -139,6 +139,48 @@ public class VendaCompraLojaVirtual implements Serializable {
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
+	
+	private String codigoEtiqueta;
+	
+	private String urlImprimeEtiqueta;
+	
+	// frete foi escolhido pelo cliente no momento da compra.
+	private String  servicoTransportadora;
+	
+	
+	
+
+	public StatusVendaLojaVirtual getStatusVendaLojaVirtual() {
+		return statusVendaLojaVirtual;
+	}
+
+	public void setStatusVendaLojaVirtual(StatusVendaLojaVirtual statusVendaLojaVirtual) {
+		this.statusVendaLojaVirtual = statusVendaLojaVirtual;
+	}
+
+	public String getCodigoEtiqueta() {
+		return codigoEtiqueta;
+	}
+
+	public void setCodigoEtiqueta(String codigoEtiqueta) {
+		this.codigoEtiqueta = codigoEtiqueta;
+	}
+
+	public String getUrlImprimeEtiqueta() {
+		return urlImprimeEtiqueta;
+	}
+
+	public void setUrlImprimeEtiqueta(String urlImprimeEtiqueta) {
+		this.urlImprimeEtiqueta = urlImprimeEtiqueta;
+	}
+
+	public String getServicoTransportadora() {
+		return servicoTransportadora;
+	}
+
+	public void setServicoTransportadora(String servicoTransportadora) {
+		this.servicoTransportadora = servicoTransportadora;
+	}
 
 	public Long getId() {
 		return id;
