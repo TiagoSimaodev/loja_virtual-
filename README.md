@@ -2,217 +2,220 @@
 
 🛒 Loja Virtual – API Back-end com Spring Boot
 
-API REST desenvolvida em Java com Spring Boot, simulando um ambiente real de trabalho, desde o levantamento de requisitos até a implementação de regras de negócio, segurança, integração com APIs externas, relatórios e SQL avançado.
+ API REST desenvolvida em Java com Spring Boot, simulando um ambiente real de trabalho, desde o levantamento de requisitos até a implementação de regras de negócio, segurança, integração com APIs externas, relatórios e SQL avançado.
 
-O projeto representa um sistema completo de loja virtual / gestão comercial, com foco em boas práticas, performance, segurança e arquitetura back-end.
+ O projeto representa um sistema completo de loja virtual / gestão comercial, com foco em boas práticas, performance, segurança e arquitetura back-end.
 
 🧩 Funcionalidades Principais
 
-Cadastro de Pessoa Física (CPF) e Pessoa Jurídica (CNPJ)
+- Cadastro de Pessoa Física (CPF) e Pessoa Jurídica (CNPJ)
 
-Gestão de empresas com separação de dados
+- Gestão de empresas com separação de dados
 
-Cadastro de produtos, categorias e marcas
+- Cadastro de produtos, categorias e marcas
 
-Cadastro e processamento de vendas
+- Cadastro e processamento de vendas
 
-Controle de estoque
+- Controle de estoque
 
-Cadastro de notas fiscais e itens de nota
+- Cadastro de notas fiscais e itens de nota
 
-Avaliação de produtos
+- Avaliação de produtos
 
-Upload e consulta de imagens de produtos
+- Upload e consulta de imagens de produtos
 
-Exclusão lógica e física de registros
+- Exclusão lógica e física de registros
 
-Relatórios com SQL avançado
+- Relatórios com SQL avançado
 
-Envio de e-mails automáticos
+- Envio de e-mails automáticos
 
-Tarefas agendadas
+- Tarefas agendadas
 
-Integração com API de transporte e frete
+- Integração com API de transporte e frete
 
-Segurança com JWT
+- Segurança com JWT
 
 🛠️ Tecnologias Utilizadas
 
-Java 17
+- Java 17
 
-Spring Boot
+- Spring Boot
 
-Spring Data JPA
+- Spring Data JPA
 
-Spring Security
+- Spring Security
 
-JWT (JSON Web Token)
+- JWT (JSON Web Token)
 
-Hibernate
+- Hibernate
 
-Flyway
+- Flyway
 
-JUnit 5
+- JUnit 5
 
-Mockito
+- Mockito
 
-SQL (PostgreSQL / compatível com outros SGBDs)
+- SQL (PostgreSQL / compatível com outros SGBDs)
 
-REST API
+- REST API
 
-Maven
+- Maven
 
-APIs externas (Receita Federal, Transporte/Frete)
+- APIs externas (Receita Federal, Transporte/Frete)
 
 🧱 Arquitetura do Projeto
 
-Arquitetura em camadas:
+- Arquitetura em camadas:
 
-Controller
+- Controller
+ 
+- Service
 
-Service
+- Repository
 
-Repository
+- Separação clara de responsabilidades
 
-Separação clara de responsabilidades
+- Uso de DTOs
 
-Uso de DTOs
+- Validações com @Valid
 
-Validações com @Valid
+- Tratamento global de exceções
 
-Tratamento global de exceções
+- Uso de Profiles (dev / prod)
 
-Uso de Profiles (dev / prod)
-
-Controle de versionamento de banco com Flyway
+- Controle de versionamento de banco com Flyway
 
 🔐 Segurança
 
-Autenticação e autorização com Spring Security
+- Autenticação e autorização com Spring Security
 
-Implementação de JWT
+- Implementação de JWT
 
-Filtros de segurança
+- Filtros de segurança
 
-Tratamento de exceções de acesso
+- Tratamento de exceções de acesso
 
-Proteção dos endpoints da API
+- Proteção dos endpoints da API
 
 🧪 Testes
 
-Testes unitários de:
+--Testes unitários de:
 
-Services
+- Services
+ 
+- Controllers
 
-Controllers
+--Uso de:
 
-Uso de:
+- JUnit
 
-JUnit
+- Mockito
 
-Mockito
+- Testes de endpoints REST
 
-Testes de endpoints REST
-
-Validação de regras de negócio
+- Validação de regras de negócio
 
 📊 SQL Avançado e Relatórios
 
-Consultas com:
+--Consultas com:
 
-INNER JOIN
+- INNER JOIN
 
-filtros dinâmicos
+- filtros dinâmicos
 
-parâmetros
+- parâmetros
 
 Relatórios:
 
-Produtos comprados
+- Produtos comprados
 
-Produtos com estoque baixo
+- Produtos com estoque baixo
 
-Compras canceladas
+- Compras canceladas
 
-Uso de SQL nativo e JPQL
+- Uso de SQL nativo e JPQL
 
 🔄 Integrações Externas
 
-Consulta de CNPJ (Receita Federal)
+- Consulta de CNPJ (Receita Federal)
 
-Consulta e compra de frete
+- Consulta e compra de frete
 
-Emissão de etiquetas de transporte
+- Emissão de etiquetas de transporte
 
-Envio de e-mails automáticos
+- Envio de e-mails automáticos
 
-Tarefas assíncronas com @Async
+- Tarefas assíncronas com @Async
 
-Agendamentos com @Scheduled
+- Agendamentos com @Scheduled
 
 🗄️ Banco de Dados
 
-Modelagem com Diagrama Entidade-Relacionamento
+Modelagem com Diagrama Entidade-Relacionamento:
 
-Criação de:
+- Criação de:
 
-tabelas
+- tabelas
 
-constraints
+- constraints
 
-triggers
+- triggers
 
-Versionamento de banco com Flyway
+- Versionamento de banco com Flyway
 
 Compatível com:
 
-PostgreSQL
+- PostgreSQL
 
-MySQL
+- MySQL
 
-SQL Server
+- SQL Server
 
 🚀 Como Executar o Projeto
-Pré-requisitos
+-- Pré-requisitos
 
-Java 17+
+- Java 17+
 
-Maven
+- Maven
 
-Banco de dados configurado (PostgreSQL recomendado)
+- Banco de dados configurado (PostgreSQL recomendado)
 
-Passos
-git clone https://github.com/seu-usuario/nome-do-projeto.git
-cd nome-do-projeto
-mvn spring-boot:run
+Passos:
+
+- git clone https://github.com/seu-usuario/nome-do-projeto.git
+
+- cd nome-do-projeto
+
+- mvn spring-boot:run
 
 
-A API estará disponível em:
+- A API estará disponível em:
 
-http://localhost:8080
+- http://localhost:8080
 
 📌 Objetivo do Projeto
 
-Este projeto foi desenvolvido com foco em:
+- Este projeto foi desenvolvido com foco em:
 
-Simular experiência real de mercado
+- Simular experiência real de mercado
 
-Consolidar conhecimentos em Java e Spring Boot
+- Consolidar conhecimentos em Java e Spring Boot
 
-Aplicar SQL avançado
+- Aplicar SQL avançado
 
-Trabalhar com segurança, testes e integração
+- Trabalhar com segurança, testes e integração
 
-Servir como projeto de portfólio profissional
+- Servir como projeto de portfólio profissional
 
 👨‍💻 Autor
 
-Tiago Simão
-Desenvolvedor Java Back-end
+- Tiago Simão
+- Desenvolvedor Java Back-end
 
-GitHub: https://github.com/TiagoSimaodev
+- GitHub: https://github.com/TiagoSimaodev
 
-LinkedIn: https://www.linkedin.com/in/tiago-simao-685015193/
+- LinkedIn: https://www.linkedin.com/in/tiagosimaodev/
 
 
 
