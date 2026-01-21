@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.loja.ExceptionLojaVirtual;
 import br.com.loja.dto.ConsultaFreteDTO;
 import br.com.loja.dto.EmpresaTransporteDTO;
+import br.com.loja.dto.EnvioEtiquetaDTO;
 import br.com.loja.dto.ItemVendaLojaDTO;
 import br.com.loja.dto.ProdutoDTO;
 import br.com.loja.dto.VendaCompraLojaVirtualDTO;
@@ -456,6 +457,41 @@ public class Vd_Cp_Loja_Virt_Controller {
 		return new ResponseEntity<List<VendaCompraLojaVirtualDTO>>(compraLojaVirtualDTOList, HttpStatus.OK);
 
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "**/imprimeCompraEtiquetaFrete")
+	public ResponseEntity<String> imprimeCompraEtiquetaFrete(@RequestBody Long idVenda)  throws ExceptionLojaVirtual {
+		
+		VendaCompraLojaVirtual compraLojaVirtual = vd_Cp_loja_virtual_repository.findById(idVenda).orElseGet(null);
+		
+		if (compraLojaVirtual == null) {
+			return new ResponseEntity<String>("Venda não encontrada", HttpStatus.OK);
+		}
+		
+		EnvioEtiquetaDTO envioEtiquetaDTO = new EnvioEtiquetaDTO();
+		
+		envioEtiquetaDTO.setService(compraLojaVirtual.getServicoTransportadora());
+		envioEtiquetaDTO.setAgency("49");
+		envioEtiquetaDTO.getFrom().setName(compraLojaVirtual.getEmpresa().getNome());
+		envioEtiquetaDTO.getFrom().setPhone(compraLojaVirtual.getEmpresa().getTelefone());
+		envioEtiquetaDTO.getFrom().setEmail(compraLojaVirtual.getEmpresa().getEmail());
+		envioEtiquetaDTO.getFrom().setCompany_document(compraLojaVirtual.getEmpresa().getCnpj());
+		envioEtiquetaDTO.getFrom().setState_register(compraLojaVirtual.getEmpresa().getInscrEstadual());
+		envioEtiquetaDTO.getFrom().setAddress(compraLojaVirtual.getEmpresa().getEnderecos().get(0).getRuaLogra());
+		envioEtiquetaDTO.getFrom().setComplement(compraLojaVirtual.getEmpresa().getEnderecos().get(0).getComplemento());
+		envioEtiquetaDTO.getFrom().setNumber(compraLojaVirtual.getEmpresa().getEnderecos().get(0).getNumero());
+		envioEtiquetaDTO.getFrom().setDistrict(compraLojaVirtual.getEmpresa().getEnderecos().get(0).getEstado());
+		envioEtiquetaDTO.getFrom().setCity(compraLojaVirtual.getEmpresa().getEnderecos().get(0).getCidade());
+		envioEtiquetaDTO.getFrom().setCountry_id(compraLojaVirtual.getEmpresa().getEnderecos().get(0).getUf());
+		envioEtiquetaDTO.getFrom().setPostal_code(compraLojaVirtual.getEmpresa().getEnderecos().get(0).getCep());
+		envioEtiquetaDTO.getFrom().setNote("Não há.");
+		
+		return new ResponseEntity<String>("Sucesso", HttpStatus.OK);
+
+		
+	}
+	
+	
 	
 	@ResponseBody
 	@PostMapping(value = "**/consultarFreteLojaVirtual")
