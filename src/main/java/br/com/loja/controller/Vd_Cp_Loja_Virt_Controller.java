@@ -486,6 +486,9 @@ public class Vd_Cp_Loja_Virt_Controller {
 		envioEtiquetaDTO.getFrom().setPostal_code(compraLojaVirtual.getEmpresa().getEnderecos().get(0).getCep());
 		envioEtiquetaDTO.getFrom().setNote("Não há.");
 		
+		
+		envioEtiquetaDTO.getTo().setName(compraLojaVirtual.getPessoa().getNome());
+		
 		return new ResponseEntity<String>("Sucesso", HttpStatus.OK);
 
 		
