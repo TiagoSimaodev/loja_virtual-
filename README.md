@@ -1,83 +1,221 @@
 ### Loja Virtual - Backend
 
-📌 Descrição
+🛒 Loja Virtual – API Back-end com Spring Boot
 
-API backend de uma Loja Virtual desenvolvida em Java com Spring Boot, projetada para gerenciar clientes, produtos, pedidos e regras de negócio. 
-A aplicação segue arquitetura em camadas (Controller, Service, Repository), com segurança, validações, testes e agendamentos, 
-pronta para integração com frontend ou outros sistemas.
+ API REST desenvolvida em Java com Spring Boot, simulando um ambiente real de trabalho, desde o levantamento de requisitos até a implementação de regras de negócio, segurança, integração com APIs externas, relatórios e SQL avançado.
 
-📌 Funcionalidades
+ O projeto representa um sistema completo de loja virtual / gestão comercial, com foco em boas práticas, performance, segurança e arquitetura back-end.
 
--Cadastro e gerenciamento de clientes (Pessoa Física e Jurídica).
+🧩 Funcionalidades Principais
 
--Cadastro e gerenciamento de produtos e categorias.
+- Cadastro de Pessoa Física (CPF) e Pessoa Jurídica (CNPJ)
 
--Processos assíncronos e envio de e-mails.
+- Gestão de empresas com separação de dados
 
--Agendamento de tarefas com @Scheduled.
+- Cadastro de produtos, categorias e marcas
 
--Validações automáticas de CPF e CNPJ com Spring Validation (@Valid).
+- Cadastro e processamento de vendas
 
--Autenticação e autorização via JWT.
+- Controle de estoque
 
--Testes unitários e de integração com JUnit e Mockito.
+- Cadastro de notas fiscais e itens de nota
 
--Migrações de banco com Flyway.
+- Avaliação de produtos
 
--Performance otimizada para operações CRUD.
+- Upload e consulta de imagens de produtos
 
-📌 Tecnologias
+- Exclusão lógica e física de registros
 
--Java 17
+- Relatórios com SQL avançado
 
--Spring Boot 
+- Envio de e-mails automáticos
 
--Spring Data JPA
+- Tarefas agendadas
 
--Spring Security com JWT
+- Integração com API de transporte e frete
 
--JUnit / Mockito
+- Segurança com JWT
 
--Flyway
+🛠️ Tecnologias Utilizadas
 
--PostgreSQL / PLpgSQL
+- Java 17
 
--Maven
+- Spring Boot
 
-📌 Estrutura do Projeto
+- Spring Data JPA
 
-src/main/java/com/loja_virtual
-├── controller       # Endpoints REST
-├── service          # Regras de negócio
-├── repository       # Repositórios JPA
-├── model            # Entidades do banco
-├── dto              # Objetos de transferência de dados
-├── security         # Configurações (Security, JWT, Profiles) 
-├── exception        # Tratamento de exceções customizadas
-└── Util             # validar cpf e cnpj
-└── enums            #status 
+- Spring Security
 
-📌 Como Executar 
+- JWT (JSON Web Token)
 
--Clone o repositório:
+- Hibernate
 
--Configure o banco de dados em application.properties
+- Flyway
 
--Execute o projeto: 
+- JUnit 5
 
--Acesse os endpoints via Postman, Insomnia ou frontend integrado
+- Mockito
 
-📌 Próximos Recursos
+- SQL (PostgreSQL / compatível com outros SGBDs)
 
--Relatórios avançados e dashboards.
+- REST API
 
--Integração com APIs de pagamento (Juno, Asaas) e transporte.
+- Maven
 
--Emissão de Nota Fiscal Eletrônica.
+- APIs externas (Receita Federal, Transporte/Frete)
 
--Disparo de campanhas de e-mail marketing.
+🧱 Arquitetura do Projeto
 
--Deployment em AWS com HTTPS.
+- Arquitetura em camadas:
+
+- Controller
+ 
+- Service
+
+- Repository
+
+- Separação clara de responsabilidades
+
+- Uso de DTOs
+
+- Validações com @Valid
+
+- Tratamento global de exceções
+
+- Uso de Profiles (dev / prod)
+
+- Controle de versionamento de banco com Flyway
+
+🔐 Segurança
+
+- Autenticação e autorização com Spring Security
+
+- Implementação de JWT
+
+- Filtros de segurança
+
+- Tratamento de exceções de acesso
+
+- Proteção dos endpoints da API
+
+🧪 Testes
+
+--Testes unitários de:
+
+- Services
+ 
+- Controllers
+
+--Uso de:
+
+- JUnit
+
+- Mockito
+
+- Testes de endpoints REST
+
+- Validação de regras de negócio
+
+📊 SQL Avançado e Relatórios
+
+--Consultas com:
+
+- INNER JOIN
+
+- filtros dinâmicos
+
+- parâmetros
+
+Relatórios:
+
+- Produtos comprados
+
+- Produtos com estoque baixo
+
+- Compras canceladas
+
+- Uso de SQL nativo e JPQL
+
+🔄 Integrações Externas
+
+- Consulta de CNPJ (Receita Federal)
+
+- Consulta e compra de frete
+
+- Emissão de etiquetas de transporte
+
+- Envio de e-mails automáticos
+
+- Tarefas assíncronas com @Async
+
+- Agendamentos com @Scheduled
+
+🗄️ Banco de Dados
+
+Modelagem com Diagrama Entidade-Relacionamento:
+
+- Criação de:
+
+- tabelas
+
+- constraints
+
+- triggers
+
+- Versionamento de banco com Flyway
+
+Compatível com:
+
+- PostgreSQL
+
+- MySQL
+
+- SQL Server
+
+🚀 Como Executar o Projeto
+-- Pré-requisitos
+
+- Java 17+
+
+- Maven
+
+- Banco de dados configurado (PostgreSQL recomendado)
+
+Passos:
+
+- git clone https://github.com/seu-usuario/nome-do-projeto.git
+
+- cd nome-do-projeto
+
+- mvn spring-boot:run
+
+
+- A API estará disponível em:
+
+- http://localhost:8080
+
+📌 Objetivo do Projeto
+
+- Este projeto foi desenvolvido com foco em:
+
+- Simular experiência real de mercado
+
+- Consolidar conhecimentos em Java e Spring Boot
+
+- Aplicar SQL avançado
+
+- Trabalhar com segurança, testes e integração
+
+- Servir como projeto de portfólio profissional
+
+👨‍💻 Autor
+
+- Tiago Simão
+- Desenvolvedor Java Back-end
+
+- GitHub: https://github.com/TiagoSimaodev
+
+- LinkedIn: https://www.linkedin.com/in/tiagosimaodev/
 
 
 
