@@ -3,14 +3,6 @@ package br.com.loja;
 
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import br.com.loja.dto.EmpresaTransporteDTO;
 import br.com.loja.enums.ApiTokenIntegracao;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
