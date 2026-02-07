@@ -45,7 +45,6 @@ import br.com.loja.service.VendaService;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 @RestController
 public class Vd_Cp_Loja_Virt_Controller {
