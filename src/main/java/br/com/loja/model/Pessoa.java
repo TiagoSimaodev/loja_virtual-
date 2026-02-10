@@ -2,6 +2,7 @@ package br.com.loja.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,6 +25,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import br.com.loja.enums.TipoEndereco;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -69,6 +72,18 @@ public abstract class Pessoa implements Serializable {
 	private Pessoa empresa;
 	
 	
+	public Endereco enderecoEntrega() {
+		
+		Endereco enderecoReturn = null;;
+		for(Endereco endereco : enderecos) {
+			if(endereco.getTipoEndereco().name().equals(TipoEndereco.ENTREGA.name())) {
+				enderecoReturn = endereco;
+				break;
+			}
+		}
+		
+		return enderecoReturn;
+	}
 	
 	public Pessoa getEmpresa() {
 		return empresa;
