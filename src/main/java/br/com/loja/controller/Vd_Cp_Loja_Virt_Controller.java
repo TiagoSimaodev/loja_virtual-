@@ -501,6 +501,8 @@ public class Vd_Cp_Loja_Virt_Controller {
 		envioEtiquetaDTO.getTo().setNote("Não há.");
 		
 		
+		//envio de compras.
+		
 		return new ResponseEntity<String>("Sucesso", HttpStatus.OK);
 
 		
