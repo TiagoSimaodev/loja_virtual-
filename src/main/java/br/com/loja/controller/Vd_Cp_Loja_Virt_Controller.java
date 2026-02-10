@@ -487,6 +487,19 @@ public class Vd_Cp_Loja_Virt_Controller {
 		
 		// to da api. 
 		envioEtiquetaDTO.getTo().setName(compraLojaVirtual.getPessoa().getNome());
+		envioEtiquetaDTO.getTo().setPhone(compraLojaVirtual.getPessoa().getTelefone());
+		envioEtiquetaDTO.getTo().setEmail(compraLojaVirtual.getPessoa().getEmail());
+		envioEtiquetaDTO.getTo().setDocument(compraLojaVirtual.getPessoa().getCpf());
+		envioEtiquetaDTO.getTo().setAddress(compraLojaVirtual.getPessoa().enderecoEntrega().getRuaLogra());
+		envioEtiquetaDTO.getTo().setComplement(compraLojaVirtual.getPessoa().enderecoEntrega().getComplemento());
+		envioEtiquetaDTO.getTo().setNumber(compraLojaVirtual.getPessoa().enderecoEntrega().getNumero());
+		envioEtiquetaDTO.getTo().setDistrict(compraLojaVirtual.getPessoa().enderecoEntrega().getEstado());
+		envioEtiquetaDTO.getTo().setCity(compraLojaVirtual.getPessoa().enderecoEntrega().getCidade());
+		envioEtiquetaDTO.getTo().setState_abbr(compraLojaVirtual.getPessoa().enderecoEntrega().getEstado());
+		envioEtiquetaDTO.getTo().setCountry_id(compraLojaVirtual.getPessoa().enderecoEntrega().getUf());
+		envioEtiquetaDTO.getTo().setPostal_code(compraLojaVirtual.getPessoa().enderecoEntrega().getCep());
+		envioEtiquetaDTO.getTo().setNote("Não há.");
+		
 		
 		return new ResponseEntity<String>("Sucesso", HttpStatus.OK);
 
