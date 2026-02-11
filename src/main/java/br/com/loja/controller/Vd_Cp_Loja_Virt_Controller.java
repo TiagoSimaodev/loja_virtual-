@@ -29,8 +29,10 @@ import br.com.loja.dto.ConsultaFreteDTO;
 import br.com.loja.dto.EmpresaTransporteDTO;
 import br.com.loja.dto.EnvioEtiquetaDTO;
 import br.com.loja.dto.ItemVendaLojaDTO;
+import br.com.loja.dto.ProductsEnvioEtiquetaDTO;
 import br.com.loja.dto.ProdutoDTO;
 import br.com.loja.dto.VendaCompraLojaVirtualDTO;
+import br.com.loja.dto.VolumesEnvioEtiquetaDTO;
 import br.com.loja.enums.ApiTokenIntegracao;
 import br.com.loja.model.Endereco;
 import br.com.loja.model.ItemVendaLoja;
@@ -502,6 +504,22 @@ public class Vd_Cp_Loja_Virt_Controller {
 		
 		
 		//envio de compras.
+		
+		List<ProductsEnvioEtiquetaDTO> products = new ArrayList<ProductsEnvioEtiquetaDTO>();
+		
+		for (ItemVendaLoja itemVendaLoja : compraLojaVirtual.getItemVendaLojas()) {
+			
+			ProductsEnvioEtiquetaDTO dto = new ProductsEnvioEtiquetaDTO();
+			
+			dto.setName(itemVendaLoja.getProduto().getNome());
+			dto.setQuantity(itemVendaLoja.getQuantidade().toString());
+			dto.setUnitary_value("" + itemVendaLoja.getProduto().getValorVenda().doubleValue());
+			
+			products.add(dto);
+		}
+		
+		
+		envioEtiquetaDTO.setProducts(products);
 		
 		return new ResponseEntity<String>("Sucesso", HttpStatus.OK);
 
