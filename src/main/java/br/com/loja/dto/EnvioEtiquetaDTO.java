@@ -19,7 +19,17 @@ public class EnvioEtiquetaDTO implements Serializable {
 	
 	private List<VolumesEnvioEtiquetaDTO> volumes = new ArrayList<VolumesEnvioEtiquetaDTO>();
 
+	private OptionsEnvioEtiquetaDTO options = new OptionsEnvioEtiquetaDTO();
 	
+	public OptionsEnvioEtiquetaDTO getOptions() {
+		return options;
+	}
+	
+	public void setOptions(OptionsEnvioEtiquetaDTO options) {
+		this.options = options;
+	}
+	
+
 	public String getAgency() {
 		return agency;
 	}
