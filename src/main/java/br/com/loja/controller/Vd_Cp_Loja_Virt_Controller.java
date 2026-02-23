@@ -31,6 +31,7 @@ import br.com.loja.dto.EnvioEtiquetaDTO;
 import br.com.loja.dto.ItemVendaLojaDTO;
 import br.com.loja.dto.ProductsEnvioEtiquetaDTO;
 import br.com.loja.dto.ProdutoDTO;
+import br.com.loja.dto.TagsEnvioEtiquetaDTO;
 import br.com.loja.dto.VendaCompraLojaVirtualDTO;
 import br.com.loja.dto.VolumesEnvioEtiquetaDTO;
 import br.com.loja.enums.ApiTokenIntegracao;
@@ -520,6 +521,37 @@ public class Vd_Cp_Loja_Virt_Controller {
 		
 		
 		envioEtiquetaDTO.setProducts(products);
+		
+		//volumes 
+		
+		List<VolumesEnvioEtiquetaDTO> volumes = new ArrayList<VolumesEnvioEtiquetaDTO>();
+		for (ItemVendaLoja itemVendaLoja : compraLojaVirtual.getItemVendaLojas()) {
+			VolumesEnvioEtiquetaDTO dto = new VolumesEnvioEtiquetaDTO();
+			dto.setHeight(itemVendaLoja.getProduto().getAltura().toString());
+			dto.setLength(itemVendaLoja.getProduto().getProfundidade().toString());
+			dto.setWeight(itemVendaLoja.getProduto().getPeso().toString());
+			dto.setWidth(itemVendaLoja.getProduto().getLargura().toString());
+			
+			volumes.add(dto);
+			
+		}
+		
+		envioEtiquetaDTO.setVolumes(volumes);
+		
+		envioEtiquetaDTO.getOptions().setInsurance_value("" + compraLojaVirtual.getValorTotal().doubleValue());
+		envioEtiquetaDTO.getOptions().setReceipt("false");
+		envioEtiquetaDTO.getOptions().setOwn_hand("false");
+		envioEtiquetaDTO.getOptions().setReverse("false");
+		envioEtiquetaDTO.getOptions().setNon_commercial("false");
+		envioEtiquetaDTO.getOptions().getInvoice().setKey(compraLojaVirtual.getNotaFiscalVenda().getNumero());
+		envioEtiquetaDTO.getOptions().setPlatform(compraLojaVirtual.getEmpresa().getNomeFantasia());
+		
+		TagsEnvioEtiquetaDTO dtoTagEnvio = new TagsEnvioEtiquetaDTO();
+		dtoTagEnvio.setTag("Identificção do pedido na plataforma, exemplo:" + compraLojaVirtual.getId());
+		dtoTagEnvio.setUrl(null);
+		
+		envioEtiquetaDTO.getOptions().getTags().add(dtoTagEnvio);
+		
 		
 		return new ResponseEntity<String>("Sucesso", HttpStatus.OK);
 
