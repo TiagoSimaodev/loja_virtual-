@@ -50,7 +50,7 @@ public class Endereco  implements Serializable{
 	@Column(nullable = false)
 	private String uf; 
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String estado;
 	
 	@Column(nullable = false)
