@@ -140,8 +140,10 @@ public class VendaCompraLojaVirtual implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataEntrega;
 	
+	@Column(name = "codigo_etiqueta")
 	private String codigoEtiqueta;
 	
+	@Column(name = "url_imprime_etiqueta")
 	private String urlImprimeEtiqueta;
 	
 	// frete foi escolhido pelo cliente no momento da compra.
