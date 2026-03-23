@@ -1,234 +1,171 @@
-### Loja Virtual - Backend
+# 🛒 Loja Virtual – API Back-end com Spring Boot
 
-🛒 Loja Virtual – API Back-end com Spring Boot
+API REST desenvolvida em Java com Spring Boot, simulando um ambiente real de mercado, desde o levantamento de requisitos até a implementação de regras de negócio, segurança, integrações externas, relatórios e SQL avançado.
 
- API REST desenvolvida em Java com Spring Boot, simulando um ambiente real de trabalho, desde o levantamento de requisitos até a implementação de regras de negócio, segurança, integração com APIs externas, relatórios e SQL avançado.
+O projeto representa um sistema completo de **e-commerce / gestão comercial**, com foco em **boas práticas, performance, segurança e arquitetura back-end**.
 
- O projeto representa um sistema completo de loja virtual / gestão comercial, com foco em boas práticas, performance, segurança e arquitetura back-end.
+---
 
-🧩 Funcionalidades Principais
+## 🚀 Funcionalidades
 
-- Cadastro de Pessoa Física (CPF) e Pessoa Jurídica (CNPJ)
+- Cadastro de Pessoa Física (CPF) e Jurídica (CNPJ)  
+- Gestão de empresas (multi-tenant)  
+- Cadastro de produtos, categorias e marcas  
+- Processamento de vendas  
+- Controle de estoque  
+- Notas fiscais e itens de nota  
+- Avaliação de produtos  
+- Upload e consulta de imagens  
+- Exclusão lógica e física  
+- Relatórios com SQL avançado  
+- Envio de e-mails automáticos  
+- Tarefas agendadas  
+- Integração com API de frete  
+- Segurança com JWT  
 
-- Gestão de empresas com separação de dados
+---
 
-- Cadastro de produtos, categorias e marcas
+## 🛠️ Tecnologias
 
-- Cadastro e processamento de vendas
+- Java 17  
+- Spring Boot  
+- Spring Data JPA  
+- Spring Security + JWT  
+- Hibernate  
+- Flyway  
+- PostgreSQL  
+- JUnit 5 + Mockito  
+- Maven  
+- APIs externas (Receita Federal, Frete)  
 
-- Controle de estoque
+---
 
-- Cadastro de notas fiscais e itens de nota
 
-- Avaliação de produtos
+## 🧱 Arquitetura
 
-- Upload e consulta de imagens de produtos
+Arquitetura em camadas bem definida:
 
-- Exclusão lógica e física de registros
+- **Controller** → entrada da API  
+- **Service** → regras de negócio  
+- **Repository** → acesso a dados  
 
-- Relatórios com SQL avançado
+Boas práticas aplicadas:
 
-- Envio de e-mails automáticos
+- Uso de DTOs  
+- Validações com `@Valid`  
+- Tratamento global de exceções  
+- Profiles (`dev` / `prod`)  
+- Versionamento de banco com Flyway  
 
-- Tarefas agendadas
+---
 
-- Integração com API de transporte e frete
+## 🔐 Segurança
 
-- Segurança com JWT
+- Autenticação com Spring Security  
+- JWT (JSON Web Token)  
+- Filtros de autenticação  
+- Proteção de endpoints  
+- Tratamento de exceções de acesso  
 
-🛠️ Tecnologias Utilizadas
+---
 
-- Java 17
+## 🧪 Testes
 
-- Spring Boot
+- Testes unitários de Services e Controllers  
+- JUnit 5  
+- Mockito  
+- Testes de endpoints REST  
+- Validação de regras de negócio  
 
-- Spring Data JPA
+---
 
-- Spring Security
+## 📊 SQL Avançado e Relatórios
 
-- JWT (JSON Web Token)
+Consultas com:
 
-- Hibernate
+- INNER JOIN  
+- Filtros dinâmicos  
+- Parâmetros  
 
-- Flyway
+Relatórios implementados:
 
-- JUnit 5
-
-- Mockito
-
-- SQL (PostgreSQL / compatível com outros SGBDs)
-
-- REST API
-
-- Maven
-
-- APIs externas (Receita Federal, Transporte/Frete)
-
-🧱 Arquitetura do Projeto
-
-- Arquitetura em camadas:
-
-- Controller
- 
-- Service
-
-- Repository
-
-- Separação clara de responsabilidades
-
-- Uso de DTOs
-
-- Validações com @Valid
-
-- Tratamento global de exceções
-
-- Uso de Profiles (dev / prod)
-
-- Controle de versionamento de banco com Flyway
-
-🔐 Segurança
-
-- Autenticação e autorização com Spring Security
-
-- Implementação de JWT
-
-- Filtros de segurança
-
-- Tratamento de exceções de acesso
-
-- Proteção dos endpoints da API
-
-🧪 Testes
-
---Testes unitários de:
-
-- Services
- 
-- Controllers
-
---Uso de:
-
-- JUnit
-
-- Mockito
-
-- Testes de endpoints REST
-
-- Validação de regras de negócio
-
-📊 SQL Avançado e Relatórios
-
---Consultas com:
-
-- INNER JOIN
-
-- filtros dinâmicos
-
-- parâmetros
-
-Relatórios:
-
-- Produtos comprados
-
-- Produtos com estoque baixo
-
+- Produtos comprados  
+- Produtos com estoque baixo  
 - Compras canceladas
 
-- Uso de SQL nativo e JPQL
+Uso de **SQL nativo e JPQL**
 
-🔄 Integrações Externas
+---
 
-- Consulta de CNPJ (Receita Federal)
+## 🔄 Integrações Externas
 
-- Consulta e compra de frete
+- Consulta de CNPJ (Receita Federal)  
+- Integração com frete e transporte  
+- Emissão de etiquetas  
+- Envio de e-mails automáticos  
+- Processamento assíncrono com `@Async`  
+- Agendamentos com `@Scheduled`  
 
-- Emissão de etiquetas de transporte
+---
 
-- Envio de e-mails automáticos
+## 🗄️ Banco de Dados
 
-- Tarefas assíncronas com @Async
-
-- Agendamentos com @Scheduled
-
-🗄️ Banco de Dados
-
-Modelagem com Diagrama Entidade-Relacionamento:
-
-- Criação de:
-
-- tabelas
-
-- constraints
-
-- triggers
-
-- Versionamento de banco com Flyway
+- Modelagem com DER  
+- Criação de tabelas, constraints e triggers  
+- Versionamento com Flyway  
 
 Compatível com:
 
+- PostgreSQL  
+- MySQL  
+- SQL Server  
+
+---
+
+## 🚀 Como executar
+
+### Pré-requisitos
+- Java 17+
+- Maven
 - PostgreSQL
 
-- MySQL
+### Passos
+```bash
+git clone https://github.com/seu-usuario/nome-do-projeto.git
+cd nome-do-projeto
+mvn spring-boot:run
+```
 
-- SQL Server
+A API estará disponível em:
 
-🚀 Como Executar o Projeto
--- Pré-requisitos
+👉 http://localhost:8080
 
-- Java 17+
+---
 
-- Maven
+📌 Objetivo
 
-- Banco de dados configurado (PostgreSQL recomendado)
+Este projeto foi desenvolvido para:
 
-Passos:
+Simular um sistema real de mercado
+Consolidar conhecimentos em Java e Spring Boot
+Aplicar SQL avançado
+Trabalhar com segurança, testes e integrações
+Servir como projeto de portfólio profissional
 
-- git clone https://github.com/seu-usuario/nome-do-projeto.git
-
-- cd nome-do-projeto
-
-- mvn spring-boot:run
-
-
-- A API estará disponível em:
-
-- http://localhost:8080
-
-📌 Objetivo do Projeto
-
-- Este projeto foi desenvolvido com foco em:
-
-- Simular experiência real de mercado
-
-- Consolidar conhecimentos em Java e Spring Boot
-
-- Aplicar SQL avançado
-
-- Trabalhar com segurança, testes e integração
-
-- Servir como projeto de portfólio profissional
-
-👨‍💻 Autor
-
-- Tiago Simão
-- Desenvolvedor Java Back-end
-
-- GitHub: https://github.com/TiagoSimaodev
-
-- LinkedIn: https://www.linkedin.com/in/tiagosimaodev/
-
-
-
-
-
-
-
+---
 
 ### Diagrama das classes para a criação das classe Back-end. 
 
-
-
-
-
 <img width="1564" height="883" alt="Diagrama Finalizado" src="https://github.com/user-attachments/assets/cce2026b-7183-440a-a9a4-b21b3c64b674" />
 
+
+---
+
+👨‍💻 Autor
+
+Tiago Simao
+Desenvolvedor Java Back-end
+
+🔗 GitHub: https://github.com/TiagoSimaodev
+
+💼 LinkedIn: https://www.linkedin.com/in/tiagosimaodev/
